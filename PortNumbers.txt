@@ -1,0 +1,6 @@
+Identity    -->    5001
+Catalog     -->    7070 (eskiden 7177)
+Discount    -->    7071 (eskiden 7138)
+Order       -->    7072 (eskiden 7136)
+Cargo       -->    7073 (eskiden 7195)
+Basket      -->    7074 (eskiden 7123)
