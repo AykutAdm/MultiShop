@@ -1,18 +1,17 @@
-﻿<div class="col-lg-4">
-    <div class="product-offer mb-30" style="height: 200px;">
-        <img class="img-fluid" src="https://img.freepik.com/premium-photo/discount-sale-tags-20-30-50-off-hangers-with-clothes-casual-clothing-store-fashion-concept-discount-season-black-friday-offline-shopping-gimmicks-holiday-sales_91130-618.jpg?w=360" alt="">
-        <div class="offer-text">
-            <h6 class="text-white text-uppercase">İndirim 20%</h6>
-            <h3 class="text-white mb-3">Özel Teklifler</h3>
-            <a href="" class="btn btn-primary">Alışverişe Başlayın</a>
+﻿@model List<ResultSpecialOfferDto>
+
+<div class="col-lg-4">
+
+    @foreach (var item in Model)
+    {
+        <div class="product-offer mb-30" style="height: 200px;">
+            <img class="img-fluid" src="@item.ImageUrl" alt="">
+            <div class="offer-text">
+                <h6 class="text-white text-uppercase">@item.Title</h6>
+                <h3 class="text-white mb-3">@item.SubTitle</h3>
+                <a href="" class="btn btn-primary">Alışverişe Başlayın</a>
+            </div>
         </div>
-    </div>
-    <div class="product-offer mb-30" style="height: 200px;">
-        <img class="img-fluid" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxVgPgzQkmp5hDbIr0wUMLj-M03JElrHXjrw&s" alt="">
-        <div class="offer-text">
-            <h6 class="text-white text-uppercase">İndirim 30%</h6>
-            <h3 class="text-white mb-3">Günün Fırsatı</h3>
-            <a href="" class="btn btn-primary">Hemen Kullanın</a>
-        </div>
-    </div>
+    }
+
 </div>
