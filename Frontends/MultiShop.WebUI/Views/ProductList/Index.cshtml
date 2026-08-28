@@ -33,7 +33,7 @@
 
                 @await Component.InvokeAsync("_ProductListGetProductCountComponentPartial")
 
-                @await Component.InvokeAsync("_ProductListComponentPartial")
+                @await Component.InvokeAsync("_ProductListComponentPartial", new { id = ViewBag.Id })
 
                 @await Component.InvokeAsync("_ProductListPaginationComponentPartial")
 
