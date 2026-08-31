@@ -16,6 +16,7 @@ namespace MultiShop.WebUI.Areas.Admin.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
+
         [Route("UpdateProductDetail/{id}")]
         [HttpGet]
         public async Task<IActionResult> UpdateProductDetail(string id)
