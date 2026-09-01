@@ -52,7 +52,7 @@ namespace MultiShop.Catalog.Controllers
             return Ok("Ürün Görselleri Başarıyla Güncellendi");
         }
 
-        [HttpGet("ProductImagesByProductId")]
+        [HttpGet("ProductImagesByProductId/{id}")]
         public async Task<IActionResult> ProductImagesByProductId(string id)
         {
             var values = await _productImageService.GetByProductIdProductImageAsync(id);

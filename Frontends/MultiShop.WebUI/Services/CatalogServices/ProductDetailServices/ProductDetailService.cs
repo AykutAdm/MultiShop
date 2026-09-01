@@ -14,6 +14,7 @@ namespace MultiShop.WebUI.Services.CatalogServices.ProductDetailServices
         {
             await _httpClient.PostAsJsonAsync<CreateProductDetailDto>("productdetails", createProductDetailDto);
         }
+
         public async Task DeleteProductDetailAsync(string id)
         {
             await _httpClient.DeleteAsync("productdetails?id=" + id);
@@ -24,6 +25,7 @@ namespace MultiShop.WebUI.Services.CatalogServices.ProductDetailServices
             var values = await responseMessage.Content.ReadFromJsonAsync<GetByIdProductDetailDto>();
             return values;
         }
+
         public async Task<List<ResultProductDetailDto>> GetAllProductDetailAsync()
         {
             var responseMessage = await _httpClient.GetAsync("productdetails");
