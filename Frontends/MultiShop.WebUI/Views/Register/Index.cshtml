@@ -4,105 +4,162 @@
 }
 
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
     <meta charset="utf-8">
-    <title>MultiShop Kayıt Paneli</title>
-    <!-- Mobile Specific Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <!-- Font-->
-    <link rel="stylesheet" type="text/css" href="~/colorlib-regform-30/css/opensans-font.css">
-    <link rel="stylesheet" type="text/css" href="~/colorlib-regform-30/fonts/line-awesome/css/line-awesome.min.css">
-    <!-- Jquery -->
-    <link rel="stylesheet" href="https://jqueryvalidation.org/files/demo/site-demos.css">
-    <!-- Main Style Css -->
-    <link rel="stylesheet" href="~/colorlib-regform-30/css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MultiShop | Kayıt Ol</title>
+    <link rel="stylesheet" href="~/login-form/css/login-form.css" />
 </head>
-<body class="form-v4">
-    <div class="page-content">
-        <div class="form-v4-content">
-            <div class="form-left">
-                <h2>MultiShop E-Ticaret</h2>
-                <p class="text-1">MultiShop projemiz üzerinden e-ticaret işlemlerini gerçekleştirebilmek, indirimli ürünler ve fırsatlardan haberdar olmak adına 1 dakikada kayıt işlemini gerçekleştirin.</p>
-                <p class="text-2">Eğer bir hesabınız varsa kayıt olmaya gerek duymadan aşağıdaki link üzerinden hemen giriş sayfasına gidebilirsiniz.</p>
-                <div class="form-left-last">
-                    <a href="/Login/Index/" class="account">Giriş Yap</a>
-                </div>
+<body class="lf-page">
+
+    <!-- Arka plan: vignette -->
+    <div class="lf-vignette"></div>
+
+    <!-- Arka plan: animasyonlu aksan çizgileri -->
+    <div class="lf-lines">
+        <div class="lf-hline"></div>
+        <div class="lf-hline"></div>
+        <div class="lf-hline"></div>
+        <div class="lf-vline"></div>
+        <div class="lf-vline"></div>
+        <div class="lf-vline"></div>
+    </div>
+
+    <!-- Arka plan: yükselen partiküller -->
+    <canvas class="lf-particles"></canvas>
+
+    <!-- Üst bar -->
+    <header class="lf-header">
+        <a class="lf-brand" href="/Default/Index">MultiShop</a>
+        <a class="lf-btn lf-btn--outline" href="/Login/Index">
+            <span>Giriş Yap</span>
+            <svg class="lf-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+        </a>
+    </header>
+
+    <!-- Kayıt kartı -->
+    <div class="lf-wrapper">
+        <div class="lf-card lf-card--wide">
+
+            <div class="lf-card-header">
+                <h1 class="lf-title">Hesabınızı oluşturun</h1>
+                <p class="lf-desc">
+                    Bir dakikadan kısa sürede kaydolun; indirimli ürünlerden ve
+                    size özel fırsatlardan ilk siz haberdar olun.
+                </p>
             </div>
-            <form class="form-detail" method="post">
-                <h2>MultiShop Kayıt Formu</h2>
-                <div class="form-group">
-                    <div class="form-row form-row-1">
-                        <label for="first_name">Adınız</label>
-                        <input type="text" asp-for="Name" id="first_name" class="input-text">
+
+            <form class="lf-card-body" method="post">
+
+                @if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="lf-alert" role="alert">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><path d="M12 8v4" /><path d="M12 16h.01" /></svg>
+                        <ul>
+                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                            {
+                                <li>@error.ErrorMessage</li>
+                            }
+                        </ul>
                     </div>
-                    <div class="form-row form-row-1">
-                        <label for="last_name">Soyadınız</label>
-                        <input type="text" asp-for="Surname" id="last_name" class="input-text">
+                }
+
+                <div class="lf-row">
+                    <div class="lf-field">
+                        <label class="lf-label" for="Name">Adınız</label>
+                        <div class="lf-input-wrap">
+                            <svg class="lf-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                            <input asp-for="Name" id="Name" type="text" class="lf-input" placeholder="Adınız" autocomplete="given-name" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-row">
-                    <label for="your_email">Email Adresi</label>
-                    <input type="text" asp-for="Email" id="your_email" class="input-text" required pattern="[^@@]+@@[^@@]+.[a-zA-Z]{2,6}">
-                </div>
-                <div class="form-row">
-                    <label for="your_username">Kullanıcı Adınız</label>
-                    <input type="text" asp-for="Username" id="your_username" class="input-text" required>
-                </div>
-                <div class="form-group">
-                    <div class="form-row form-row-1 ">
-                        <label for="password">Şifre</label>
-                        <input type="password" asp-for="Password" id="password" class="input-text" required>
-                    </div>
-                    <div class="form-row form-row-1">
-                        <label for="comfirm-password">Şifre Tekrar</label>
-                        <input type="password" asp-for="ConfirmPassword" id="comfirm_password" class="input-text" required>
+
+                    <div class="lf-field">
+                        <label class="lf-label" for="Surname">Soyadınız</label>
+                        <div class="lf-input-wrap">
+                            <svg class="lf-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
+                            <input asp-for="Surname" id="Surname" type="text" class="lf-input" placeholder="Soyadınız" autocomplete="family-name" required>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-row-last">
-                    <button class="register" style="height:35px">Kayıt Ol</button>
+                <div class="lf-field">
+                    <label class="lf-label" for="Email">Email Adresi</label>
+                    <div class="lf-input-wrap">
+                        <svg class="lf-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                        <input asp-for="Email" id="Email" type="email" class="lf-input" placeholder="siz@@ornek.com" autocomplete="email" required>
+                    </div>
+                </div>
+
+                <div class="lf-field">
+                    <label class="lf-label" for="Username">Kullanıcı Adınız</label>
+                    <div class="lf-input-wrap">
+                        <svg class="lf-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="10" r="3" /><path d="M7 20.66a8 8 0 0 1 10 0" /></svg>
+                        <input asp-for="Username" id="Username" type="text" class="lf-input" placeholder="kullaniciadi" autocomplete="username" required>
+                    </div>
+                </div>
+
+                <div class="lf-row">
+                    <div class="lf-field">
+                        <label class="lf-label" for="Password">Şifre</label>
+                        <div class="lf-input-wrap">
+                            <svg class="lf-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                            <input asp-for="Password" id="Password" type="password" class="lf-input lf-input--toggle" placeholder="••••••••" autocomplete="new-password" required>
+                            <button type="button" class="lf-toggle" data-lf-toggle="Password" aria-pressed="false" aria-label="Şifreyi göster" data-lf-label-show="Şifreyi göster" data-lf-label-hide="Şifreyi gizle">
+                                <svg class="lf-icon-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>
+                                <svg class="lf-icon-hide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" /><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" /><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" /><line x1="2" x2="22" y1="2" y2="22" /></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="lf-field">
+                        <label class="lf-label" for="ConfirmPassword">Şifre Tekrar</label>
+                        <div class="lf-input-wrap">
+                            <svg class="lf-input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
+                            <input asp-for="ConfirmPassword" id="ConfirmPassword" type="password" class="lf-input lf-input--toggle" placeholder="••••••••" autocomplete="new-password" required>
+                            <button type="button" class="lf-toggle" data-lf-toggle="ConfirmPassword" aria-pressed="false" aria-label="Şifreyi göster" data-lf-label-show="Şifreyi göster" data-lf-label-hide="Şifreyi gizle">
+                                <svg class="lf-icon-show" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>
+                                <svg class="lf-icon-hide" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" /><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" /><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" /><line x1="2" x2="22" y1="2" y2="22" /></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lf-meta">
+                    <div class="lf-check">
+                        <input type="checkbox" id="terms" name="terms" value="true" required>
+                        <label for="terms">Kullanım koşullarını kabul ediyorum</label>
+                    </div>
+                    <a class="lf-link" href="/Login/Index">Giriş yap</a>
+                </div>
+
+                <button type="submit" class="lf-btn">Kayıt Ol</button>
+
+                <div class="lf-separator"><span>veya</span></div>
+
+                <div class="lf-btn-grid">
+                    <a class="lf-btn lf-btn--ghost" href="/Default/Index">
+                        <svg class="lf-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><path d="M9 22V12h6v10" /></svg>
+                        Ana Sayfa
+                    </a>
+                    <a class="lf-btn lf-btn--ghost" href="/Login/Index">
+                        <svg class="lf-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" /><polyline points="10 17 15 12 10 7" /><line x1="15" x2="3" y1="12" y2="12" /></svg>
+                        Giriş Yap
+                    </a>
                 </div>
             </form>
+
+            <div class="lf-card-footer">
+                <div>
+                    Zaten bir hesabınız var mı?
+                    <a href="/Login/Index">Oturum açın</a>
+                </div>
+                <a class="lf-site-link" href="/Default/Index">multishop.com</a>
+            </div>
+
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <script>
-        // just for the demos, avoids form submit
-        jQuery.validator.setDefaults({
-            debug: true,
-            success: function (label) {
-                label.attr('id', 'valid');
-            },
-        });
-        $("#myform").validate({
-            rules: {
-                password: "required",
-                comfirm_password: {
-                    equalTo: "#password"
-                }
-            },
-            messages: {
-                first_name: {
-                    required: "Please enter a firstname"
-                },
-                last_name: {
-                    required: "Please enter a lastname"
-                },
-                your_email: {
-                    required: "Please provide an email"
-                },
-                password: {
-                    required: "Please enter a password"
-                },
-                comfirm_password: {
-                    required: "Please enter a password",
-                    equalTo: "Wrong Password"
-                }
-            }
-        });
-    </script>
-</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+
+    <script src="~/login-form/js/login-form.js"></script>
+</body>
 </html>

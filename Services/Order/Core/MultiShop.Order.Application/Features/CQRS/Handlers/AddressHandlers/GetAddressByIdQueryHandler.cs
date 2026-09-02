@@ -18,6 +18,7 @@ namespace MultiShop.Order.Application.Features.CQRS.Handlers.AddressHandlers
         {
             _repository = repository;
         }
+
         public async Task<GetAddressByIdQueryResult> Handle(GetAddressByIdQuery query)
         {
             var values = await _repository.GetByIdAsync(query.Id);
@@ -25,9 +26,17 @@ namespace MultiShop.Order.Application.Features.CQRS.Handlers.AddressHandlers
             {
                 AddressId = values.AddressId,
                 City = values.City,
-                Detail = values.Detail,
+                Detail1 = values.Detail1,
                 District = values.District,
-                UserId = values.UserId
+                UserId = values.UserId,
+                ZipCode = values.ZipCode,
+                Surname = values.Surname,
+                Country = values.Country,
+                Description = values.Description,
+                Phone = values.Phone,
+                Detail2 = values.Detail2,
+                Name = values.Name,
+                Email = values.Email
             };
         }
     }

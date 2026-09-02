@@ -1,0 +1,611 @@
+/* ==========================================================================
+   login-form  -  Koyu tema giris / kayit formu
+   --------------------------------------------------------------------------
+   Bagimsiz bir pakettir. Baska bir projede kullanmak icin "login-form"
+   klasorunu oldugu gibi kopyalayin, sonra su iki satiri sayfaniza ekleyin:
+
+       <link rel="stylesheet" href="login-form/css/login-form.css">
+       <script src="login-form/js/login-form.js"></script>
+
+   Butun sinif adlari "lf-" onekiyle baslar; mevcut CSS'inizle cakismaz.
+   Renkleri degistirmek icin sadece asagidaki :root degiskenlerini duzenleyin.
+   ========================================================================== */
+
+:root {
+    --lf-bg: #09090b;          /* sayfa zemini            */
+    --lf-surface: #18181b;     /* kart zemini             */
+    --lf-border: #27272a;      /* kenarlik / cizgi        */
+    --lf-border-strong: #3f3f46;
+    --lf-muted: #52525b;       /* placeholder             */
+    --lf-icon: #71717a;        /* input ikonlari          */
+    --lf-text-soft: #a1a1aa;   /* aciklama metni          */
+    --lf-text-label: #d4d4d8;  /* etiketler               */
+    --lf-text: #fafafa;        /* ana metin / birincil buton zemini */
+    --lf-text-hover: #e4e4e7;
+    --lf-on-accent: #18181b;   /* birincil buton yazisi   */
+    --lf-danger: #fca5a5;      /* hata metni              */
+    --lf-radius: 12px;
+    --lf-radius-sm: 8px;
+    --lf-card-width: 24rem;
+    --lf-card-width-wide: 30rem;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body.lf-page {
+    position: relative;
+    min-height: 100vh;
+    background: var(--lf-bg);
+    color: var(--lf-text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+                 "Helvetica Neue", Arial, sans-serif;
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+}
+
+/* ==========================================================================
+   1. Arka plan katmanlari  (vignette + aksan cizgileri + partikuller)
+   ========================================================================== */
+
+.lf-vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(80% 60% at 50% 30%, rgba(255, 255, 255, .06), transparent 60%);
+}
+
+.lf-lines {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .7;
+}
+
+.lf-hline,
+.lf-vline {
+    position: absolute;
+    background: var(--lf-border);
+    will-change: transform, opacity;
+}
+
+.lf-hline {
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform: scaleX(0);
+    transform-origin: 50% 50%;
+    animation: lf-drawX .8s cubic-bezier(.22, .61, .36, 1) forwards;
+}
+
+.lf-vline {
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform: scaleY(0);
+    transform-origin: 50% 0%;
+    animation: lf-drawY .9s cubic-bezier(.22, .61, .36, 1) forwards;
+}
+
+.lf-hline:nth-child(1) { top: 18%;  animation-delay: .12s; }
+.lf-hline:nth-child(2) { top: 50%;  animation-delay: .22s; }
+.lf-hline:nth-child(3) { top: 82%;  animation-delay: .32s; }
+.lf-vline:nth-child(4) { left: 22%; animation-delay: .42s; }
+.lf-vline:nth-child(5) { left: 50%; animation-delay: .54s; }
+.lf-vline:nth-child(6) { left: 78%; animation-delay: .66s; }
+
+.lf-hline::after,
+.lf-vline::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent, rgba(250, 250, 250, .24), transparent);
+    opacity: 0;
+    animation: lf-shimmer .9s ease-out forwards;
+}
+
+.lf-hline:nth-child(1)::after { animation-delay: .12s; }
+.lf-hline:nth-child(2)::after { animation-delay: .22s; }
+.lf-hline:nth-child(3)::after { animation-delay: .32s; }
+.lf-vline:nth-child(4)::after { animation-delay: .42s; }
+.lf-vline:nth-child(5)::after { animation-delay: .54s; }
+.lf-vline:nth-child(6)::after { animation-delay: .66s; }
+
+@keyframes lf-drawX {
+    0%   { transform: scaleX(0); opacity: 0; }
+    60%  { opacity: .95; }
+    100% { transform: scaleX(1); opacity: .7; }
+}
+
+@keyframes lf-drawY {
+    0%   { transform: scaleY(0); opacity: 0; }
+    60%  { opacity: .95; }
+    100% { transform: scaleY(1); opacity: .7; }
+}
+
+@keyframes lf-shimmer {
+    0%   { opacity: 0; }
+    35%  { opacity: .25; }
+    100% { opacity: 0; }
+}
+
+.lf-particles {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+    mix-blend-mode: screen;
+    pointer-events: none;
+}
+
+/* ==========================================================================
+   2. Ust bar
+   ========================================================================== */
+
+.lf-header {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 16px 24px;
+    border-bottom: 1px solid rgba(39, 39, 42, .8);
+    background: rgba(9, 9, 11, .6);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.lf-brand {
+    font-size: 12px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--lf-text-soft);
+    text-decoration: none;
+    transition: color .15s ease;
+}
+
+.lf-brand:hover {
+    color: var(--lf-text-hover);
+}
+
+/* ==========================================================================
+   3. Kart
+   ========================================================================== */
+
+.lf-wrapper {
+    position: relative;
+    z-index: 10;
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    padding: 96px 16px 48px;
+}
+
+.lf-card {
+    width: 100%;
+    max-width: var(--lf-card-width);
+    border: 1px solid var(--lf-border);
+    border-radius: var(--lf-radius);
+    background: rgba(24, 24, 27, .7);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 24px 60px -20px rgba(0, 0, 0, .8);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: lf-fadeUp .8s cubic-bezier(.22, .61, .36, 1) .4s forwards;
+}
+
+/* Alan sayisi fazla olan formlar (ornegin kayit) icin genis varyant */
+.lf-card--wide {
+    max-width: var(--lf-card-width-wide);
+}
+
+@keyframes lf-fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.lf-card-header {
+    padding: 24px 24px 0;
+}
+
+.lf-title {
+    margin: 0 0 4px;
+    font-size: 24px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -.01em;
+}
+
+.lf-desc {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--lf-text-soft);
+}
+
+.lf-card-body {
+    display: grid;
+    gap: 20px;
+    padding: 24px;
+}
+
+.lf-card-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    padding: 0 24px 24px;
+    font-size: 14px;
+    color: var(--lf-text-soft);
+}
+
+.lf-card-footer a {
+    color: var(--lf-text-hover);
+    text-decoration: none;
+}
+
+.lf-card-footer a:hover {
+    text-decoration: underline;
+}
+
+.lf-site-link {
+    font-size: 10px;
+    letter-spacing: .04em;
+    color: var(--lf-muted) !important;
+    transition: color .2s ease;
+}
+
+.lf-site-link:hover {
+    color: var(--lf-text-soft) !important;
+    text-decoration: none !important;
+}
+
+/* ==========================================================================
+   4. Form alanlari
+   ========================================================================== */
+
+.lf-field {
+    display: grid;
+    gap: 8px;
+}
+
+/* Iki alani yan yana koymak icin: <div class="lf-row"> ... </div> */
+.lf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+@media (max-width: 480px) {
+    .lf-row { grid-template-columns: 1fr; }
+}
+
+.lf-label {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--lf-text-label);
+}
+
+.lf-input-wrap {
+    position: relative;
+    display: block;
+}
+
+.lf-input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    color: var(--lf-icon);
+    pointer-events: none;
+}
+
+.lf-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px 0 38px;
+    border: 1px solid var(--lf-border);
+    border-radius: var(--lf-radius-sm);
+    background: var(--lf-bg);
+    color: var(--lf-text);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.lf-input::placeholder {
+    color: var(--lf-muted);
+}
+
+.lf-input:focus {
+    border-color: var(--lf-muted);
+    box-shadow: 0 0 0 2px rgba(250, 250, 250, .12);
+}
+
+/* Tarayici otomatik doldurmasinda beyaz zemini engelle */
+.lf-input:-webkit-autofill,
+.lf-input:-webkit-autofill:hover,
+.lf-input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--lf-text);
+    -webkit-box-shadow: 0 0 0 1000px var(--lf-bg) inset;
+    transition: background-color 9999s ease-out;
+}
+
+/* Ikonsuz kullanmak isterseniz */
+.lf-input--bare {
+    padding-left: 12px;
+}
+
+/* Sag tarafta goz butonu olan sifre alanlari */
+.lf-input--toggle {
+    padding-right: 40px;
+}
+
+.lf-toggle {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--lf-text-soft);
+    cursor: pointer;
+    transition: color .15s ease;
+}
+
+.lf-toggle:hover {
+    color: var(--lf-text-hover);
+}
+
+.lf-toggle .lf-icon-hide { display: none; }
+.lf-toggle.is-visible .lf-icon-show { display: none; }
+.lf-toggle.is-visible .lf-icon-hide { display: block; }
+
+/* ==========================================================================
+   5. Checkbox / yardimci satir
+   ========================================================================== */
+
+.lf-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.lf-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.lf-check input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    flex: none;
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    border: 1px solid var(--lf-border-strong);
+    border-radius: 4px;
+    background: transparent;
+    cursor: pointer;
+}
+
+.lf-check input[type="checkbox"]:checked {
+    background: var(--lf-text);
+    border-color: var(--lf-text);
+}
+
+.lf-check input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: solid var(--lf-on-accent);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.lf-check label {
+    color: var(--lf-text-soft);
+    cursor: pointer;
+}
+
+.lf-link {
+    font-size: 14px;
+    color: var(--lf-text-label);
+    text-decoration: none;
+    transition: color .15s ease;
+}
+
+.lf-link:hover {
+    color: var(--lf-text);
+}
+
+/* ==========================================================================
+   6. Butonlar
+   ========================================================================== */
+
+.lf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 40px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: var(--lf-radius-sm);
+    background: var(--lf-text);
+    color: var(--lf-on-accent);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease;
+}
+
+.lf-btn:hover {
+    background: var(--lf-text-hover);
+}
+
+/* Ust bardaki kucuk cerceveli buton */
+.lf-btn--outline {
+    width: auto;
+    height: 36px;
+    border: 1px solid var(--lf-border);
+    background: var(--lf-surface);
+    color: var(--lf-text);
+}
+
+.lf-btn--outline:hover {
+    background: rgba(24, 24, 27, .8);
+}
+
+/* Kart icindeki ikincil butonlar */
+.lf-btn--ghost {
+    border: 1px solid var(--lf-border);
+    background: var(--lf-bg);
+    color: var(--lf-text);
+}
+
+.lf-btn--ghost:hover {
+    background: rgba(24, 24, 27, .8);
+}
+
+.lf-btn-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.lf-btn-icon {
+    width: 16px;
+    height: 16px;
+    flex: none;
+}
+
+/* ==========================================================================
+   7. Ayirici  ("veya")
+   ========================================================================== */
+
+.lf-separator {
+    position: relative;
+    height: 1px;
+    background: var(--lf-border);
+}
+
+.lf-separator span {
+    position: absolute;
+    left: 50%;
+    top: -9px;
+    transform: translateX(-50%);
+    padding: 0 8px;
+    /* Kart zemini yari saydam oldugundan yakin bir duz renk kullaniliyor */
+    background: #1b1b1e;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: var(--lf-icon);
+}
+
+/* ==========================================================================
+   8. Hata / bilgi kutusu ve dogrulama
+   ========================================================================== */
+
+.lf-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid rgba(248, 113, 113, .3);
+    border-radius: var(--lf-radius-sm);
+    background: rgba(127, 29, 29, .25);
+    color: var(--lf-danger);
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.lf-alert svg {
+    flex: none;
+    margin-top: 1px;
+}
+
+.lf-alert ul {
+    margin: 0;
+    padding-left: 16px;
+}
+
+/* ASP.NET Core / jQuery unobtrusive validation sinif adlari */
+.field-validation-error,
+.lf-field-error {
+    display: block;
+    color: var(--lf-danger);
+    font-size: 12px;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border-color: rgba(248, 113, 113, .6) !important;
+}
+
+/* ==========================================================================
+   9. Erisilebilirlik
+   ========================================================================== */
+
+.lf-visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .lf-hline,
+    .lf-vline,
+    .lf-hline::after,
+    .lf-vline::after,
+    .lf-card {
+        animation: none !important;
+        opacity: 1;
+        transform: none;
+    }
+}

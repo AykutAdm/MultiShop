@@ -17,13 +17,24 @@ namespace MultiShop.Order.Application.Features.CQRS.Handlers.AddressHandlers
         {
             _repository = repository;
         }
+
         public async Task Handle(UpdateAddressCommand command)
         {
             var values = await _repository.GetByIdAsync(command.AddressId);
-            values.Detail = command.Detail;
+            values.Detail1 = command.Detail1;
             values.District = command.District;
             values.City = command.City;
             values.UserId = command.UserId;
+            values.Country = command.Country;
+            values.Surname = command.Surname;
+            values.Phone = command.Phone;
+            values.Detail2 = command.Detail2;
+            values.ZipCode = command.ZipCode;
+            values.Name = command.Name;
+            values.Description = command.Description;
+            values.AddressId = command.AddressId;
+            values.Email = command.Email;
+
             await _repository.UpdateAsync(values);
         }
     }

@@ -71,6 +71,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Images", "Images", "{2856FD
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Images", "Services\Images\MultiShop.Images\MultiShop.Images.csproj", "{9C93F8C9-FDF6-4C75-9FC1-869491B1A918}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Message", "Message", "{C259C8D0-1DBB-43B0-BE61-4D99D5A37D47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiShop.Message", "Services\Message\MultiShop.Message\MultiShop.Message.csproj", "{C43A0E1B-324C-4104-B6EF-96D88D7365A0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +157,10 @@ Global
 		{9C93F8C9-FDF6-4C75-9FC1-869491B1A918}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C93F8C9-FDF6-4C75-9FC1-869491B1A918}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C93F8C9-FDF6-4C75-9FC1-869491B1A918}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C43A0E1B-324C-4104-B6EF-96D88D7365A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C43A0E1B-324C-4104-B6EF-96D88D7365A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C43A0E1B-324C-4104-B6EF-96D88D7365A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C43A0E1B-324C-4104-B6EF-96D88D7365A0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -188,6 +196,8 @@ Global
 		{3E3566A1-07EF-44F8-B656-648B4B76B0CD} = {03148F06-F4D3-4029-BFC7-ACD9ACF29AC6}
 		{2856FD53-B740-4512-8EDC-DA8F1C194DDF} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{9C93F8C9-FDF6-4C75-9FC1-869491B1A918} = {2856FD53-B740-4512-8EDC-DA8F1C194DDF}
+		{C259C8D0-1DBB-43B0-BE61-4D99D5A37D47} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{C43A0E1B-324C-4104-B6EF-96D88D7365A0} = {C259C8D0-1DBB-43B0-BE61-4D99D5A37D47}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7FC1DAF-7017-43DC-959A-02EC345866BF}
