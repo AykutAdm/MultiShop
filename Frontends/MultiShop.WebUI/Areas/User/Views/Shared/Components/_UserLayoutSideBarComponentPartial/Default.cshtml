@@ -1,57 +1,114 @@
-﻿﻿<nav class="sidebar sidebar-offcanvas" id="sidebar">
+﻿@{
+    var sidebarUserName = User?.Identity?.IsAuthenticated == true && !string.IsNullOrWhiteSpace(User.Identity.Name)
+        ? User.Identity.Name
+        : "Ali Yıldırım";
+
+    var sidebarInitials = string.Join("", sidebarUserName
+        .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+        .Take(2)
+        .Select(x => char.ToUpperInvariant(x[0])));
+}
+
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+
+    <!-- Marka -->
+    <a class="sidebar-brand" href="/Default/Index/">
+        <span class="sidebar-brand-mark">
+            <img src="~/user-theme/img/logo-mark.svg" alt="MultiShop" />
+        </span>
+        <span class="sidebar-brand-text">
+            Multi<span class="brand-accent">Shop</span>
+            <small>Kullanıcı Paneli</small>
+        </span>
+    </a>
+
+    <!-- Menü -->
     <ul class="nav">
+
         <li class="nav-item sidebar-category">
             <p>Menüler</p>
-            <span></span>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/forms/basic_elements.html">
-                <i class="mdi mdi-view-headline menu-icon"></i>
+            <a class="nav-link" href="#">
+                <i class="mdi mdi-view-dashboard-outline menu-icon"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/charts/chartjs.html">
-                <i class="mdi mdi-chart-pie menu-icon"></i>
+            <a class="nav-link" href="#">
+                <i class="mdi mdi-package-variant-closed menu-icon"></i>
                 <span class="menu-title">Aktif Siparişlerim</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/charts/chartjs.html">
-                <i class="mdi mdi-chart-pie menu-icon"></i>
+            <a class="nav-link" href="/User/MyOrder/MyOrderList">
+                <i class="mdi mdi-history menu-icon"></i>
                 <span class="menu-title">Geçmiş Siparişlerim</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/tables/basic-table.html">
-                <i class="mdi mdi-grid-large menu-icon"></i>
+            <a class="nav-link" href="#">
+                <i class="mdi mdi-truck-fast-outline menu-icon"></i>
                 <span class="menu-title">Kargolarım</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/icons/mdi.html">
-                <i class="mdi mdi-emoticon menu-icon"></i>
+            <a class="nav-link" href="#">
+                <i class="mdi mdi-account-circle-outline menu-icon"></i>
                 <span class="menu-title">Profilim</span>
             </a>
         </li>
+
+        <li class="nav-item sidebar-category">
+            <p>Mesajlarım</p>
+        </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/icons/mdi.html">
-                <i class="mdi mdi-emoticon menu-icon"></i>
-                <span class="menu-title">Mesajlarım</span>
+            <a class="nav-link" href="/User/Message/Inbox">
+                <i class="mdi mdi-inbox-arrow-down-outline menu-icon"></i>
+                <span class="menu-title">Gelen Kutusu</span>
             </a>
         </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/icons/mdi.html">
-                <i class="mdi mdi-emoticon menu-icon"></i>
+            <a class="nav-link" href="/User/Message/Sendbox">
+                <i class="mdi mdi-send-outline menu-icon"></i>
+                <span class="menu-title">Gönderilenler</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="#">
+                <i class="mdi mdi-lifebuoy menu-icon"></i>
                 <span class="menu-title">Taleplerim</span>
             </a>
         </li>
+
+        <li class="nav-item sidebar-category">
+            <p>Hesap</p>
+        </li>
+
         <li class="nav-item">
-            <a class="nav-link" href="../../pages/icons/mdi.html">
-                <i class="mdi mdi-emoticon menu-icon"></i>
+            <a class="nav-link nav-link-danger" href="#">
+                <i class="mdi mdi-logout-variant menu-icon"></i>
                 <span class="menu-title">Çıkış Yap</span>
             </a>
         </li>
+
     </ul>
+
+    <!-- Alt kullanıcı kartı -->
+    <div class="sidebar-user">
+        <span class="avatar-fallback">@sidebarInitials</span>
+        <div class="sidebar-user-meta">
+            <strong>@sidebarUserName</strong>
+            <span>Üye</span>
+        </div>
+    </div>
+
 </nav>

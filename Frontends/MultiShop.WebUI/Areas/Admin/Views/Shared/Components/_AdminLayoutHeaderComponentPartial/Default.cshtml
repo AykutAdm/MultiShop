@@ -1,117 +1,115 @@
-﻿<header class="main-header dark-bg">
+﻿@{
+    var greeting = DateTime.Now.Hour < 12 ? "Günaydın" : DateTime.Now.Hour < 18 ? "İyi günler" : "İyi akşamlar";
+}
 
-    <!-- Logo -->
-    <a href="../index.html" class="logo dark-bg">
-        <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini"><img src="~/images/logos/multishop1.jpg" style="width:50px;height:50px;" alt="Ovio"></span>
-        <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><img src="~/images/logos/multishop1.jpg" style="width:200px;height:50px;" alt="Ovio"></span>
-    </a>
+<nav class="navbar">
 
-    <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation">
-        <!-- Sidebar toggle button-->
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button"> <span class="sr-only">Toggle navigation</span> </a>
-        <div class="pull-left search-box">
-            <form action="#" method="get" class="search-form">
-                <div class="input-group">
-                    <input type="text" name="search" class="form-control" placeholder="Aranacak Kelimeyi Giriniz...">
-                    <span class="input-group-btn">
-                        <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i> </button>
+    <!-- Sidebar aç / daralt -->
+    <button class="navbar-toggler" type="button" data-toggle="minimize" aria-label="Menüyü aç veya daralt">
+        <span class="mdi mdi-menu"></span>
+    </button>
+
+    <!-- Başlık -->
+    <div class="navbar-title d-none d-md-block">
+        <h4>@greeting, Aykut Adem</h4>
+        <span>@DateTime.Now.ToString("dd MMMM yyyy, dddd")</span>
+    </div>
+
+    <!-- Arama -->
+    <form action="#" method="get" class="topbar-search d-none d-lg-block ms-3">
+        <i class="mdi mdi-magnify"></i>
+        <input type="text" name="search" class="form-control" placeholder="Aranacak kelimeyi giriniz..." aria-label="Ara">
+    </form>
+
+    <ul class="navbar-nav ms-auto">
+
+        <!-- Mesajlar -->
+        <li class="nav-item dropdown d-none d-sm-flex">
+            <a class="topbar-icon-btn dropdown-toggle" href="#" id="adminMessageDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-email-outline"></i>
+                <span class="count bg-info">4</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="adminMessageDropdown">
+                <div class="dropdown-header">Mesajlar</div>
+                <a class="dropdown-item" href="/Admin/Comment/Index/">
+                    <span class="preview-icon bg-info"><i class="mdi mdi-account-outline"></i></span>
+                    <span class="preview-item-content">
+                        <span class="preview-subject">Yeni müşteri mesajı</span>
+                        <span class="preview-text">2 dakika önce</span>
                     </span>
-                </div>
-            </form>
-            <!-- search form -->
-        </div>
-        <!-- Navbar Right Menu -->
-        <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-                <li class="dropdown messages-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-envelope"></i>
-                        <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">You have 4 messages</li>
-                        <li>
-                            <ul class="menu">
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left"><img src="~/MainDownload-OvioAdmin-html5-template/html/dist/img/img1.jpg" class="img-circle" alt="User Image"></div>
-                                        <h4>Admin Paneli</h4>
-                                        <p>Lorem ipsum dolor sit amet.</p>
-                                        <p><small><i class="fa fa-clock-o"></i> 2 mins</small></p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left"><img src="~/MainDownload-OvioAdmin-html5-template/html/dist/img/img2.jpg" class="img-circle" alt="User Image"></div>
-                                        <h4>Douglas Smith</h4>
-                                        <p>Lorem ipsum dolor sit amet.</p>
-                                        <p><small><i class="fa fa-clock-o"></i> 15 mins</small></p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left"><img src="~/MainDownload-OvioAdmin-html5-template/html/dist/img/img3.jpg" class="img-circle" alt="User Image"></div>
-                                        <h4>Lorence Deo</h4>
-                                        <p>Lorem ipsum dolor sit amet.</p>
-                                        <p><small><i class="fa fa-clock-o"></i> 35 mins</small></p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <div class="pull-left"><img src="~/MainDownload-OvioAdmin-html5-template/html/dist/img/img1.jpg" class="img-circle" alt="User Image"></div>
-                                        <h4>Florence Douglas</h4>
-                                        <p>Lorem ipsum dolor sit amet.</p>
-                                        <p><small><i class="fa fa-clock-o"></i> 2 mins</small></p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">Check all notifications</a></li>
-                    </ul>
-                </li>
-                <!-- messages-menu -->
-                <!-- Notifications Menu -->
-                <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-megaphone"></i>
-                        <div class="notify"> <span class="heartbit"></span> <span class="point"></span> </div>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">Notifications</li>
-                        <li>
-                            <ul class="menu">
-                                <li><a href="#"><i class="icon-lightbulb"></i> Lorem ipsum dolor sit amet </a> </li>
-                                <li><a href="#"><i class="icon-map-pin blue"></i> Lorem ipsum dolor sit amet </a> </li>
-                                <li><a href="#"><i class="icon-refresh orange"></i> Lorem ipsum dolor sit amet </a> </li>
-                                <li><a href="#"><i class="icon-map-pin blue"></i> Lorem ipsum dolor sit amet </a> </li>
-                            </ul>
-                        </li>
-                        <li class="footer"><a href="#">View all</a></li>
-                    </ul>
-                </li>
-                <!-- Tasks Menu -->
-                <!-- User Account Menu -->
-                <li class="dropdown user user-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="~/images/logos/admin.png" class="user-image" alt="User Image"> <span class="hidden-xs">Admin 01</span> </a>
-                    <ul class="dropdown-menu">
-                        <li class="user-header">
-                            <div class="pull-left user-img"><img src="~/images/logos/admin.png" class="img-responsive" alt="User"></div>
-                            <p class="text-left">Aykut Adem <small>multishop@gmail.com</small> </p>
-                            <div class="view-link text-left"><a href="#">View Profile</a> </div>
-                        </li>
-                        <li><a href="#"><i class="icon-profile-male"></i> My Profile</a></li>
-                        <li><a href="#"><i class="icon-wallet"></i> My Balance</a></li>
-                        <li><a href="#"><i class="icon-envelope"></i> Inbox</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#"><i class="icon-gears"></i> Account Setting</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</header>
+                </a>
+                <a class="dropdown-item" href="/Admin/Comment/Index/">
+                    <span class="preview-icon bg-success"><i class="mdi mdi-comment-text-outline"></i></span>
+                    <span class="preview-item-content">
+                        <span class="preview-subject">Ürün yorumu onay bekliyor</span>
+                        <span class="preview-text">15 dakika önce</span>
+                    </span>
+                </a>
+            </div>
+        </li>
+
+        <!-- Bildirimler -->
+        <li class="nav-item dropdown">
+            <a class="topbar-icon-btn dropdown-toggle" href="#" id="adminNotificationDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-bell-outline"></i>
+                <span class="count bg-danger">2</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="adminNotificationDropdown">
+                <div class="dropdown-header">Bildirimler</div>
+                <a class="dropdown-item" href="/Admin/Category/Index/">
+                    <span class="preview-icon bg-warning"><i class="mdi mdi-alert-outline"></i></span>
+                    <span class="preview-item-content">
+                        <span class="preview-subject">Stok seviyesi düşük</span>
+                        <span class="preview-text">3 üründe kritik stok</span>
+                    </span>
+                </a>
+                <a class="dropdown-item" href="/Admin/Product/ProductListWithCategory/">
+                    <span class="preview-icon bg-success"><i class="mdi mdi-check-circle-outline"></i></span>
+                    <span class="preview-item-content">
+                        <span class="preview-subject">Yeni ürün eklendi</span>
+                        <span class="preview-text">Bugün, 09:24</span>
+                    </span>
+                </a>
+            </div>
+        </li>
+
+        <!-- Yönetici profili -->
+        <li class="nav-item nav-profile dropdown ms-1">
+            <a class="topbar-profile dropdown-toggle" href="#" id="adminProfileDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="~/images/logos/admin.png" alt="Admin" />
+                <span class="nav-profile-name d-none d-sm-inline">Aykut Adem</span>
+                <i class="mdi mdi-chevron-down"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="adminProfileDropdown">
+                <div class="dropdown-header">multishop@@gmail.com</div>
+                <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-account-outline"></i> Profilim
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-wallet-outline"></i> Bakiyem
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-inbox-arrow-down-outline"></i> Gelen Kutusu
+                </a>
+                <a class="dropdown-item" href="/Admin/User/UserList/">
+                    <i class="mdi mdi-account-group-outline"></i> Kullanıcı Listesi
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-cog-outline"></i> Hesap Ayarları
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="/Default/Index/">
+                    <i class="mdi mdi-storefront-outline"></i> Siteye Git
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-logout-variant"></i> Çıkış Yap
+                </a>
+            </div>
+        </li>
+
+    </ul>
+
+</nav>

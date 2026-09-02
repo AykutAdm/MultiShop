@@ -3,16 +3,19 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 @await Component.InvokeAsync("_UserLayoutHeadComponentPartial")
 
-<body>
-    <div class="container-scroller d-flex">
+<body class="nova-dark">
+
+    <div class="container-scroller">
 
         @await Component.InvokeAsync("_UserLayoutSideBarComponentPartial")
 
-        <div class="container-fluid page-body-wrapper">
+        <div class="sidebar-backdrop"></div>
+
+        <div class="page-body-wrapper">
 
             @await Component.InvokeAsync("_UserLayoutNavbarComponentPartial")
 
@@ -22,10 +25,10 @@
 
     </div>
 
-    <script src="~/spica/vendors/js/vendor.bundle.base.js"></script>
-    <script src="~/spica/js/off-canvas.js"></script>
-    <script src="~/spica/js/hoverable-collapse.js"></script>
-    <script src="~/spica/js/template.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/user-theme/js/dark-theme.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 

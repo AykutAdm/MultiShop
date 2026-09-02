@@ -1,0 +1,1083 @@
+/* =====================================================================
+   NOVA DARK  -  Reusable premium dark theme
+   Proje   : MultiShop / User Panel
+   Gereken : Bootstrap 5.x (grid + component) + Material Design Icons
+   Kullanim: <body class="nova-dark"> ... </body>
+   Bu dosya bagimsizdir, baska projelere aynen kopyalanabilir.
+   Renkleri degistirmek icin sadece :root blogunu duzenlemeniz yeterli.
+   ===================================================================== */
+
+/* ------------------------------------------------------------------
+   1. DESIGN TOKENS
+   ------------------------------------------------------------------ */
+:root {
+    /* Zemin katmanlari */
+    --nv-bg: #0a0b0f;
+    --nv-bg-soft: #0e1016;
+    --nv-surface: #12141b;
+    --nv-surface-2: #171a23;
+    --nv-surface-3: #1e2230;
+    --nv-elevated: #1a1d27;
+
+    /* Cizgiler */
+    --nv-border: rgba(255, 255, 255, .07);
+    --nv-border-strong: rgba(255, 255, 255, .12);
+
+    /* Yazi renkleri */
+    --nv-text: #e8eaf0;
+    --nv-text-soft: #b4bac9;
+    --nv-muted: #7d8598;
+    --nv-faint: #5b6273;
+
+    /* Vurgu renkleri */
+    --nv-accent: #6c8cff;
+    --nv-accent-2: #a06bff;
+    --nv-accent-soft: rgba(108, 140, 255, .14);
+    --nv-accent-glow: rgba(108, 140, 255, .35);
+
+    /* Durum renkleri */
+    --nv-success: #3ddc97;
+    --nv-warning: #f5b544;
+    --nv-danger: #ff6b6b;
+    --nv-info: #45c8f1;
+
+    /* Olculer */
+    --nv-sidebar-w: 268px;
+    --nv-sidebar-mini: 82px;
+    --nv-topbar-h: 74px;
+    --nv-radius: 16px;
+    --nv-radius-sm: 10px;
+    --nv-radius-lg: 22px;
+
+    /* Golgeler */
+    --nv-shadow: 0 18px 46px -18px rgba(0, 0, 0, .85);
+    --nv-shadow-sm: 0 8px 20px -12px rgba(0, 0, 0, .75);
+
+    --nv-ease: cubic-bezier(.4, 0, .2, 1);
+    --nv-font: "Plus Jakarta Sans", "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+/* ------------------------------------------------------------------
+   2. BASE + ARKA PLAN
+   ------------------------------------------------------------------ */
+.nova-dark {
+    margin: 0;
+    min-height: 100vh;
+    background-color: var(--nv-bg);
+    color: var(--nv-text);
+    font-family: var(--nv-font);
+    font-size: 14px;
+    line-height: 1.6;
+    letter-spacing: .1px;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* Aurora isik huzmeleri */
+.nova-dark::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+        radial-gradient(760px 420px at 12% -6%, rgba(108, 140, 255, .20), transparent 62%),
+        radial-gradient(640px 420px at 92% 4%, rgba(160, 107, 255, .16), transparent 60%),
+        radial-gradient(720px 480px at 68% 102%, rgba(61, 220, 151, .09), transparent 62%);
+}
+
+/* Ince izgara dokusu */
+.nova-dark::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: .5;
+    background-image:
+        linear-gradient(rgba(255, 255, 255, .022) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, .022) 1px, transparent 1px);
+    background-size: 56px 56px;
+    -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 78%);
+    mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 78%);
+}
+
+.nova-dark > * {
+    position: relative;
+    z-index: 1;
+}
+
+.nova-dark h1,
+.nova-dark h2,
+.nova-dark h3,
+.nova-dark h4,
+.nova-dark h5,
+.nova-dark h6 {
+    color: var(--nv-text);
+    font-weight: 700;
+    letter-spacing: -.2px;
+}
+
+.nova-dark a { color: var(--nv-accent); text-decoration: none; transition: color .18s var(--nv-ease); }
+.nova-dark a:hover { color: #9db0ff; }
+.nova-dark p { color: var(--nv-text-soft); }
+.nova-dark hr { border-color: var(--nv-border); opacity: 1; }
+.nova-dark ::selection { background: var(--nv-accent-glow); color: #fff; }
+
+/* Scrollbar */
+.nova-dark *::-webkit-scrollbar { width: 10px; height: 10px; }
+.nova-dark *::-webkit-scrollbar-track { background: transparent; }
+.nova-dark *::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, .12);
+    border: 3px solid transparent;
+    background-clip: content-box;
+    border-radius: 20px;
+}
+.nova-dark *::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, .22);
+    background-clip: content-box;
+}
+
+/* ------------------------------------------------------------------
+   3. SAYFA ISKELETI
+   ------------------------------------------------------------------ */
+.nova-dark .container-scroller { min-height: 100vh; }
+
+.nova-dark .page-body-wrapper {
+    margin-left: var(--nv-sidebar-w);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    transition: margin-left .28s var(--nv-ease);
+}
+
+.nova-dark .main-panel { flex: 1 1 auto; width: 100%; }
+
+.nova-dark .content-wrapper { padding: 26px 30px 46px; }
+
+/* Sidebar daraltilmis mod */
+.nova-dark.sidebar-icon-only .sidebar { width: var(--nv-sidebar-mini); }
+.nova-dark.sidebar-icon-only .page-body-wrapper { margin-left: var(--nv-sidebar-mini); }
+.nova-dark.sidebar-icon-only .sidebar .menu-title,
+.nova-dark.sidebar-icon-only .sidebar .sidebar-category,
+.nova-dark.sidebar-icon-only .sidebar .sidebar-brand-text,
+.nova-dark.sidebar-icon-only .sidebar .sidebar-user-meta,
+.nova-dark.sidebar-icon-only .sidebar .nav-badge { display: none; }
+.nova-dark.sidebar-icon-only .sidebar .nav-link { justify-content: center; padding-left: 0; padding-right: 0; }
+.nova-dark.sidebar-icon-only .sidebar-brand,
+.nova-dark.sidebar-icon-only .sidebar-user { justify-content: center; }
+
+/* ------------------------------------------------------------------
+   4. SIDEBAR
+   ------------------------------------------------------------------ */
+.nova-dark .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    z-index: 1040;
+    width: var(--nv-sidebar-w);
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background: linear-gradient(180deg, #12141b 0%, #0d0f15 100%);
+    border-right: 1px solid var(--nv-border);
+    box-shadow: 1px 0 0 rgba(255, 255, 255, .02), var(--nv-shadow);
+    transition: width .28s var(--nv-ease), transform .28s var(--nv-ease);
+}
+
+/* Marka blogu */
+.nova-dark .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: var(--nv-topbar-h);
+    padding: 0 20px;
+    border-bottom: 1px solid var(--nv-border);
+    flex: 0 0 auto;
+}
+
+.nova-dark .sidebar-brand-logo {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--nv-accent) 0%, var(--nv-accent-2) 100%);
+    color: #fff;
+    font-size: 19px;
+    font-weight: 800;
+    box-shadow: 0 8px 20px -8px var(--nv-accent-glow);
+}
+
+/* Marka blogu link olarak kullanildiginda */
+.nova-dark a.sidebar-brand { color: inherit; text-decoration: none; }
+.nova-dark a.sidebar-brand:hover { background: rgba(255, 255, 255, .03); }
+
+/* SVG marka isareti */
+.nova-dark .sidebar-brand-mark {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    display: block;
+    border-radius: 12px;
+    box-shadow: 0 10px 24px -10px var(--nv-accent-glow);
+    transition: transform .22s var(--nv-ease), box-shadow .22s var(--nv-ease);
+}
+.nova-dark .sidebar-brand-mark img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.nova-dark a.sidebar-brand:hover .sidebar-brand-mark {
+    transform: translateY(-1px) scale(1.04);
+    box-shadow: 0 14px 30px -10px var(--nv-accent-glow);
+}
+
+/* Kelime markasindaki vurgulu yarim */
+.nova-dark .brand-accent {
+    background: linear-gradient(100deg, var(--nv-accent) 0%, var(--nv-accent-2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: var(--nv-accent);
+}
+
+.nova-dark .sidebar-brand-text {
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -.3px;
+    color: #fff;
+    white-space: nowrap;
+    line-height: 1.25;
+}
+.nova-dark .sidebar-brand-text small {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--nv-faint);
+}
+
+/* Menu listesi */
+.nova-dark .sidebar .nav {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    display: block;
+    padding: 18px 14px 14px;
+    margin: 0;
+    list-style: none;
+}
+
+.nova-dark .sidebar .nav-item { margin-bottom: 4px; }
+
+.nova-dark .sidebar .sidebar-category { padding: 14px 12px 8px; margin: 0; }
+.nova-dark .sidebar .sidebar-category p {
+    margin: 0;
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: var(--nv-faint);
+}
+
+.nova-dark .sidebar .nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 11px 14px;
+    border-radius: var(--nv-radius-sm);
+    color: var(--nv-text-soft);
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background .18s var(--nv-ease), color .18s var(--nv-ease), transform .18s var(--nv-ease);
+}
+
+.nova-dark .sidebar .nav-link .menu-icon {
+    font-size: 19px;
+    line-height: 1;
+    width: 22px;
+    text-align: center;
+    color: var(--nv-muted);
+    transition: color .18s var(--nv-ease);
+}
+
+.nova-dark .sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, .045);
+    color: #fff;
+    transform: translateX(2px);
+}
+.nova-dark .sidebar .nav-link:hover .menu-icon { color: var(--nv-accent); }
+
+.nova-dark .sidebar .nav-link.active {
+    background: linear-gradient(90deg, var(--nv-accent-soft) 0%, rgba(160, 107, 255, .06) 100%);
+    color: #fff;
+    font-weight: 600;
+}
+.nova-dark .sidebar .nav-link.active .menu-icon { color: var(--nv-accent); }
+.nova-dark .sidebar .nav-link.active::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 22px;
+    border-radius: 0 4px 4px 0;
+    background: linear-gradient(180deg, var(--nv-accent), var(--nv-accent-2));
+    box-shadow: 0 0 14px var(--nv-accent-glow);
+}
+
+/* Menu sagindaki rozet */
+.nova-dark .sidebar .nav-badge {
+    margin-left: auto;
+    min-width: 22px;
+    padding: 1px 7px;
+    border-radius: 999px;
+    background: var(--nv-accent-soft);
+    color: #a9bcff;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Cikis linki */
+.nova-dark .sidebar .nav-link-danger:hover { background: rgba(255, 107, 107, .10); color: #ffb3b3; }
+.nova-dark .sidebar .nav-link-danger:hover .menu-icon { color: var(--nv-danger); }
+
+/* Alt kullanici karti */
+.nova-dark .sidebar-user {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    margin: 0;
+    border-top: 1px solid var(--nv-border);
+    background: rgba(255, 255, 255, .015);
+}
+.nova-dark .sidebar-user img {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, .12);
+}
+.nova-dark .avatar-fallback {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--nv-accent), var(--nv-accent-2));
+}
+.nova-dark .sidebar-user-meta { min-width: 0; }
+.nova-dark .sidebar-user-meta strong {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.nova-dark .sidebar-user-meta span {
+    display: block;
+    font-size: 11.5px;
+    color: var(--nv-faint);
+}
+
+/* ------------------------------------------------------------------
+   5. UST BAR
+   ------------------------------------------------------------------ */
+.nova-dark .navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    min-height: var(--nv-topbar-h);
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(10, 11, 15, .72);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid var(--nv-border);
+}
+
+.nova-dark .navbar-title { min-width: 0; }
+.nova-dark .navbar-title h4 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.nova-dark .navbar-title span {
+    display: block;
+    font-size: 12px;
+    color: var(--nv-muted);
+}
+
+.nova-dark .navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.nova-dark .navbar-nav .nav-item { display: flex; }
+
+/* Ikon butonlari */
+.nova-dark .topbar-icon-btn {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--nv-border);
+    background: rgba(255, 255, 255, .03);
+    color: var(--nv-text-soft);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all .18s var(--nv-ease);
+}
+.nova-dark .topbar-icon-btn:hover {
+    background: rgba(255, 255, 255, .07);
+    border-color: var(--nv-border-strong);
+    color: #fff;
+    transform: translateY(-1px);
+}
+.nova-dark .topbar-icon-btn::after { display: none; }
+.nova-dark .topbar-icon-btn .count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    font-size: 10.5px;
+    font-weight: 700;
+    color: #fff;
+    border: 2px solid var(--nv-bg);
+}
+.nova-dark .topbar-icon-btn .count.bg-info { background: var(--nv-info) !important; color: #04222c; }
+.nova-dark .topbar-icon-btn .count.bg-danger { background: var(--nv-danger) !important; }
+
+/* Ust bar arama kutusu */
+.nova-dark .topbar-search {
+    position: relative;
+    flex: 1 1 auto;
+    max-width: 380px;
+}
+.nova-dark .topbar-search i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--nv-faint);
+    font-size: 17px;
+    pointer-events: none;
+}
+.nova-dark .topbar-search .form-control { padding-left: 40px; }
+
+/* Ust bar profil */
+.nova-dark .topbar-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 14px 5px 6px;
+    border-radius: 999px;
+    border: 1px solid var(--nv-border);
+    background: rgba(255, 255, 255, .03);
+    color: var(--nv-text);
+    transition: all .18s var(--nv-ease);
+}
+.nova-dark .topbar-profile:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+.nova-dark .topbar-profile::after { display: none; }
+.nova-dark .topbar-profile img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+.nova-dark .topbar-profile .avatar-fallback { width: 32px; height: 32px; flex: 0 0 32px; font-size: 12.5px; }
+.nova-dark .topbar-profile .nav-profile-name { font-size: 13.5px; font-weight: 600; }
+
+/* Hamburger */
+.nova-dark .navbar-toggler {
+    width: 40px;
+    height: 40px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    border: 1px solid var(--nv-border);
+    background: rgba(255, 255, 255, .03);
+    color: var(--nv-text-soft);
+    font-size: 20px;
+    padding: 0;
+    transition: all .18s var(--nv-ease);
+}
+.nova-dark .navbar-toggler:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+.nova-dark .navbar-toggler:focus { box-shadow: none; outline: none; }
+
+/* Mobil perde */
+.nova-dark .sidebar-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1035;
+    background: rgba(0, 0, 0, .6);
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .25s var(--nv-ease), visibility .25s var(--nv-ease);
+}
+.nova-dark.sidebar-open .sidebar-backdrop { opacity: 1; visibility: visible; }
+
+/* ------------------------------------------------------------------
+   6. DROPDOWN
+   ------------------------------------------------------------------ */
+.nova-dark .dropdown-menu {
+    min-width: 260px;
+    padding: 8px;
+    margin-top: 10px !important;
+    border-radius: 14px;
+    border: 1px solid var(--nv-border-strong);
+    background: var(--nv-elevated);
+    box-shadow: var(--nv-shadow);
+    color: var(--nv-text);
+}
+.nova-dark .dropdown-header {
+    padding: 8px 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    color: var(--nv-faint);
+}
+.nova-dark .dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 12px;
+    border-radius: var(--nv-radius-sm);
+    color: var(--nv-text-soft);
+    font-size: 13.5px;
+    white-space: normal;
+}
+.nova-dark .dropdown-item:hover,
+.nova-dark .dropdown-item:focus { background: rgba(255, 255, 255, .06); color: #fff; }
+.nova-dark .dropdown-item i { font-size: 17px; color: var(--nv-accent); }
+.nova-dark .dropdown-divider { border-color: var(--nv-border); }
+
+.nova-dark .preview-item-content { min-width: 0; display: flex; flex-direction: column; }
+.nova-dark .preview-subject { margin: 0; font-size: 13px; font-weight: 600; color: var(--nv-text); }
+.nova-dark .preview-text,
+.nova-dark .preview-item-content p { margin: 0; font-size: 11.5px; color: var(--nv-muted); }
+.nova-dark .preview-thumbnail img { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; }
+.nova-dark .preview-icon {
+    width: 34px;
+    height: 34px;
+    flex: 0 0 34px;
+    border-radius: 10px;
+    display: grid;
+    place-items: center;
+    color: #06121a;
+}
+.nova-dark .preview-icon i { color: inherit; font-size: 16px; }
+.nova-dark .preview-icon.bg-success { background: var(--nv-success) !important; }
+.nova-dark .preview-icon.bg-warning { background: var(--nv-warning) !important; }
+.nova-dark .preview-icon.bg-info { background: var(--nv-info) !important; }
+
+/* ------------------------------------------------------------------
+   7. SAYFA BASLIGI
+   ------------------------------------------------------------------ */
+.nova-dark .page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 24px;
+}
+.nova-dark .page-header h3 {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -.4px;
+}
+.nova-dark .page-subtitle {
+    margin: 4px 0 0;
+    font-size: 13px;
+    color: var(--nv-muted);
+}
+.nova-dark .breadcrumb-mini {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--nv-faint);
+    margin-bottom: 8px;
+}
+.nova-dark .breadcrumb-mini i { font-size: 14px; }
+
+/* ------------------------------------------------------------------
+   8. KART
+   ------------------------------------------------------------------ */
+.nova-dark .card {
+    position: relative;
+    border: 1px solid var(--nv-border);
+    border-radius: var(--nv-radius);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .028) 0%, rgba(255, 255, 255, .008) 100%), var(--nv-surface);
+    box-shadow: var(--nv-shadow-sm);
+    color: var(--nv-text);
+    overflow: hidden;
+    transition: border-color .2s var(--nv-ease), transform .2s var(--nv-ease), box-shadow .2s var(--nv-ease);
+}
+.nova-dark .card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .16), transparent);
+}
+.nova-dark .card:hover { border-color: var(--nv-border-strong); }
+.nova-dark .card-body { padding: 24px 26px; }
+.nova-dark .card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+.nova-dark .card-title i { color: var(--nv-accent); font-size: 19px; }
+.nova-dark .card-subtitle { font-size: 12.5px; color: var(--nv-muted); margin-bottom: 20px; }
+.nova-dark .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 20px 26px;
+    border-bottom: 1px solid var(--nv-border);
+    background: transparent;
+}
+.nova-dark .grid-margin { margin-bottom: 24px; }
+.nova-dark .stretch-card { display: flex; align-items: stretch; }
+.nova-dark .stretch-card > .card { width: 100%; }
+
+/* Istatistik kutulari */
+.nova-dark .stat-card .card-body { padding: 20px 22px; }
+.nova-dark .stat-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    font-size: 21px;
+    margin-bottom: 14px;
+}
+.nova-dark .stat-icon.tone-accent { background: var(--nv-accent-soft); color: var(--nv-accent); }
+.nova-dark .stat-icon.tone-success { background: rgba(61, 220, 151, .14); color: var(--nv-success); }
+.nova-dark .stat-icon.tone-warning { background: rgba(245, 181, 68, .14); color: var(--nv-warning); }
+.nova-dark .stat-icon.tone-info { background: rgba(69, 200, 241, .14); color: var(--nv-info); }
+.nova-dark .stat-value { font-size: 26px; font-weight: 800; letter-spacing: -.6px; color: #fff; line-height: 1.2; }
+.nova-dark .stat-label { font-size: 12.5px; color: var(--nv-muted); }
+
+/* ------------------------------------------------------------------
+   9. TABLO
+   ------------------------------------------------------------------ */
+.nova-dark .table-responsive { overflow-x: auto; }
+
+.nova-dark .table {
+    width: 100%;
+    margin: 0;
+    color: var(--nv-text-soft);
+    border-collapse: separate;
+    border-spacing: 0;
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--nv-text-soft);
+    --bs-table-striped-color: var(--nv-text-soft);
+    --bs-table-hover-color: var(--nv-text);
+}
+
+.nova-dark .table > thead > tr > th {
+    padding: 13px 16px;
+    background: rgba(255, 255, 255, .028);
+    border: 0;
+    border-bottom: 1px solid var(--nv-border-strong);
+    color: var(--nv-muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+.nova-dark .table > thead > tr > th:first-child { border-top-left-radius: 12px; }
+.nova-dark .table > thead > tr > th:last-child { border-top-right-radius: 12px; }
+
+.nova-dark .table > tbody > tr > td,
+.nova-dark .table > tbody > tr > th {
+    padding: 14px 16px;
+    border: 0;
+    border-bottom: 1px solid var(--nv-border);
+    background: transparent;
+    color: var(--nv-text-soft);
+    font-weight: 500;
+    vertical-align: middle;
+}
+.nova-dark .table > tbody > tr > th { color: var(--nv-faint); font-weight: 700; width: 58px; }
+.nova-dark .table > tbody > tr:last-child > td,
+.nova-dark .table > tbody > tr:last-child > th { border-bottom: 0; }
+
+.nova-dark .table > tbody > tr { transition: background .16s var(--nv-ease); }
+.nova-dark .table > tbody > tr:hover > td,
+.nova-dark .table > tbody > tr:hover > th { background: rgba(255, 255, 255, .034); }
+
+/* Bootstrap'in acik renkli satir varyantlari karanlik temaya cevrilir */
+.nova-dark .table > tbody > tr[class*="table-"] > td,
+.nova-dark .table > tbody > tr[class*="table-"] > th {
+    --bs-table-bg: transparent;
+    --bs-table-color: var(--nv-text-soft);
+    background: transparent;
+    color: var(--nv-text-soft);
+}
+
+/* Hucre yardimcilari */
+.nova-dark .cell-strong { color: #fff; font-weight: 600; }
+.nova-dark .cell-muted { color: var(--nv-faint); font-size: 12.5px; }
+.nova-dark .cell-mono {
+    font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+    font-size: 12px;
+    color: var(--nv-muted);
+}
+.nova-dark .cell-price { color: var(--nv-success); font-weight: 700; font-size: 14.5px; white-space: nowrap; }
+.nova-dark .cell-user { display: flex; align-items: center; gap: 10px; }
+.nova-dark .cell-user .avatar-fallback { width: 32px; height: 32px; flex: 0 0 32px; font-size: 12px; }
+
+.nova-dark .table-empty { padding: 54px 20px; text-align: center; color: var(--nv-muted); }
+.nova-dark .table-empty i { font-size: 44px; color: var(--nv-faint); display: block; margin-bottom: 10px; }
+.nova-dark .table-empty p { margin: 0; font-size: 13px; }
+
+/* Satir icindeki aksiyon butonlari */
+.nova-dark .row-actions { display: flex; align-items: center; gap: 8px; }
+
+/* ------------------------------------------------------------------
+   10. ROZETLER
+   ------------------------------------------------------------------ */
+.nova-dark .badge-soft {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: .2px;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+.nova-dark .badge-soft::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+}
+.nova-dark .badge-soft.is-success { background: rgba(61, 220, 151, .12); color: var(--nv-success); border-color: rgba(61, 220, 151, .26); }
+.nova-dark .badge-soft.is-warning { background: rgba(245, 181, 68, .12); color: var(--nv-warning); border-color: rgba(245, 181, 68, .26); }
+.nova-dark .badge-soft.is-danger { background: rgba(255, 107, 107, .12); color: var(--nv-danger); border-color: rgba(255, 107, 107, .26); }
+.nova-dark .badge-soft.is-info { background: rgba(69, 200, 241, .12); color: var(--nv-info); border-color: rgba(69, 200, 241, .26); }
+.nova-dark .badge-soft.is-accent { background: var(--nv-accent-soft); color: #9db0ff; border-color: rgba(108, 140, 255, .26); }
+.nova-dark .badge-soft.is-muted { background: rgba(255, 255, 255, .05); color: var(--nv-muted); border-color: var(--nv-border); }
+
+/* ------------------------------------------------------------------
+   11. BUTONLAR
+   ------------------------------------------------------------------ */
+.nova-dark .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 17px;
+    border-radius: var(--nv-radius-sm);
+    border: 1px solid transparent;
+    font-size: 13.5px;
+    font-weight: 600;
+    line-height: 1.2;
+    transition: all .18s var(--nv-ease);
+}
+.nova-dark .btn:focus,
+.nova-dark .btn:active:focus { box-shadow: 0 0 0 3px var(--nv-accent-soft); }
+.nova-dark .btn i { font-size: 16px; }
+.nova-dark .btn-sm { padding: 6px 12px; font-size: 12.5px; border-radius: 9px; }
+.nova-dark .btn-icon { width: 34px; height: 34px; padding: 0; border-radius: 9px; }
+
+.nova-dark .btn-primary {
+    background: linear-gradient(135deg, var(--nv-accent) 0%, #5a76ff 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 10px 24px -14px var(--nv-accent-glow);
+}
+.nova-dark .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); color: #fff; }
+
+.nova-dark .btn-ghost {
+    background: rgba(255, 255, 255, .04);
+    border-color: var(--nv-border);
+    color: var(--nv-text-soft);
+}
+.nova-dark .btn-ghost:hover { background: rgba(255, 255, 255, .09); border-color: var(--nv-border-strong); color: #fff; }
+
+/* Bootstrap renk butonlarinin yumusak karanlik karsiliklari */
+.nova-dark .btn-info,
+.nova-dark .btn-danger,
+.nova-dark .btn-warning,
+.nova-dark .btn-success,
+.nova-dark .btn-secondary {
+    background: rgba(255, 255, 255, .04);
+    border-width: 1px;
+    border-style: solid;
+}
+.nova-dark .btn-info { border-color: rgba(69, 200, 241, .30); color: var(--nv-info); }
+.nova-dark .btn-info:hover { background: rgba(69, 200, 241, .16); color: #bdeeff; border-color: rgba(69, 200, 241, .50); }
+.nova-dark .btn-danger { border-color: rgba(255, 107, 107, .30); color: var(--nv-danger); }
+.nova-dark .btn-danger:hover { background: rgba(255, 107, 107, .16); color: #ffc7c7; border-color: rgba(255, 107, 107, .50); }
+.nova-dark .btn-warning { border-color: rgba(245, 181, 68, .30); color: var(--nv-warning); }
+.nova-dark .btn-warning:hover { background: rgba(245, 181, 68, .16); color: #ffdc9c; border-color: rgba(245, 181, 68, .50); }
+.nova-dark .btn-success { border-color: rgba(61, 220, 151, .30); color: var(--nv-success); }
+.nova-dark .btn-success:hover { background: rgba(61, 220, 151, .16); color: #adf5d6; border-color: rgba(61, 220, 151, .50); }
+.nova-dark .btn-secondary { border-color: var(--nv-border); color: var(--nv-text-soft); }
+.nova-dark .btn-secondary:hover { background: rgba(255, 255, 255, .09); color: #fff; }
+
+/* ------------------------------------------------------------------
+   12. FORM ELEMANLARI
+   ------------------------------------------------------------------ */
+.nova-dark .form-control,
+.nova-dark .form-select {
+    padding: 10px 14px;
+    border-radius: var(--nv-radius-sm);
+    border: 1px solid var(--nv-border);
+    background: rgba(255, 255, 255, .035);
+    color: var(--nv-text);
+    font-size: 13.5px;
+    transition: all .18s var(--nv-ease);
+}
+.nova-dark .form-control::placeholder { color: var(--nv-faint); }
+.nova-dark .form-control:focus,
+.nova-dark .form-select:focus {
+    background: rgba(255, 255, 255, .06);
+    border-color: rgba(108, 140, 255, .55);
+    color: var(--nv-text);
+    box-shadow: 0 0 0 3px var(--nv-accent-soft);
+    outline: none;
+}
+.nova-dark .form-label { font-size: 12.5px; font-weight: 600; color: var(--nv-text-soft); margin-bottom: 6px; }
+.nova-dark .form-select option { background: var(--nv-surface-2); color: var(--nv-text); }
+.nova-dark .input-group .form-control { background: rgba(255, 255, 255, .035); }
+
+/* ------------------------------------------------------------------
+   13. YARDIMCI SINIFLAR + ANIMASYON
+   ------------------------------------------------------------------ */
+.nova-dark .text-muted { color: var(--nv-muted) !important; }
+.nova-dark .divider { height: 1px; background: var(--nv-border); margin: 22px 0; }
+.nova-dark .glass {
+    background: rgba(255, 255, 255, .04);
+    border: 1px solid var(--nv-border);
+    border-radius: var(--nv-radius);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+
+@keyframes nvFadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: none; }
+}
+.nova-dark .content-wrapper > * { animation: nvFadeUp .38s var(--nv-ease) both; }
+
+@media (prefers-reduced-motion: reduce) {
+    .nova-dark *,
+    .nova-dark *::before,
+    .nova-dark *::after {
+        animation-duration: .001ms !important;
+        transition-duration: .001ms !important;
+    }
+}
+
+/* ------------------------------------------------------------------
+   14. RESPONSIVE
+   ------------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+    .nova-dark .sidebar { transform: translateX(-100%); }
+    .nova-dark.sidebar-open .sidebar { transform: translateX(0); }
+    .nova-dark .page-body-wrapper,
+    .nova-dark.sidebar-icon-only .page-body-wrapper { margin-left: 0; }
+    .nova-dark.sidebar-icon-only .sidebar { width: var(--nv-sidebar-w); }
+    .nova-dark.sidebar-icon-only .sidebar .menu-title,
+    .nova-dark.sidebar-icon-only .sidebar .sidebar-category,
+    .nova-dark.sidebar-icon-only .sidebar .sidebar-brand-text,
+    .nova-dark.sidebar-icon-only .sidebar .sidebar-user-meta { display: block; }
+    .nova-dark.sidebar-icon-only .sidebar .nav-link { justify-content: flex-start; padding-left: 14px; padding-right: 14px; }
+    .nova-dark .navbar { padding: 0 18px; }
+    .nova-dark .content-wrapper { padding: 20px 18px 36px; }
+}
+
+@media (max-width: 575.98px) {
+    .nova-dark .card-body { padding: 18px 16px; }
+    .nova-dark .page-header h3 { font-size: 20px; }
+    .nova-dark .navbar { gap: 10px; }
+}
+
+/* ==================================================================
+   15. ADMIN SHELL
+   Admin area'daki mevcut sinif isimleri (chart-box, content-header,
+   breadcrumb, section.content ...) karanlik temaya uyarlanir.
+   Boylece 29 admin view'inin markup'ina dokunmaya gerek kalmaz.
+   ================================================================== */
+
+/* Admin layout iskeleti - user panel ile ayni davranir */
+.nova-dark .wrapper { min-height: 100vh; }
+
+/* Icerik bolumleri */
+.nova-dark section.content,
+.nova-dark .content.container-fluid {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: none;
+}
+
+/* Sayfa basligi (ViewBag.v0 / v1 / v2 / v3) */
+.nova-dark .content-header {
+    padding: 0;
+    margin-bottom: 24px;
+}
+.nova-dark .content-header h1 {
+    margin: 0 0 6px;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -.4px;
+    color: #fff;
+}
+.nova-dark .content-header .breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border-radius: 0;
+    list-style: none;
+    font-size: 12.5px;
+}
+.nova-dark .content-header .breadcrumb > li {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--nv-faint);
+}
+.nova-dark .content-header .breadcrumb > li + li::before {
+    content: "/";
+    margin-right: 4px;
+    color: var(--nv-faint);
+    opacity: .6;
+}
+.nova-dark .content-header .breadcrumb > li > a { color: var(--nv-muted); }
+.nova-dark .content-header .breadcrumb > li > a:hover { color: var(--nv-accent); }
+.nova-dark .content-header .breadcrumb > li.active { color: var(--nv-text-soft); }
+.nova-dark .content-header .breadcrumb i { font-size: 14px; color: var(--nv-accent); }
+.nova-dark .content-header .breadcrumb > li:empty,
+.nova-dark .content-header .breadcrumb > li.active:empty { display: none; }
+
+/* chart-box -> kart gorunumu */
+.nova-dark .chart-box {
+    position: relative;
+    padding: 24px 26px;
+    margin-bottom: 24px;
+    border: 1px solid var(--nv-border);
+    border-radius: var(--nv-radius);
+    background: linear-gradient(180deg, rgba(255, 255, 255, .028) 0%, rgba(255, 255, 255, .008) 100%), var(--nv-surface);
+    box-shadow: var(--nv-shadow-sm);
+    color: var(--nv-text);
+    overflow: hidden;
+    transition: border-color .2s var(--nv-ease);
+}
+.nova-dark .chart-box::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .16), transparent);
+}
+.nova-dark .chart-box:hover { border-color: var(--nv-border-strong); }
+.nova-dark .chart-box > h4 {
+    margin: 0 0 4px;
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+}
+.nova-dark .chart-box > h4 + br { display: none; }
+.nova-dark .chart-box .bs-example { margin: 0; }
+
+/* Tablo chart-box icinde kenarlara yaslanir */
+.nova-dark .chart-box .table { margin-bottom: 18px; }
+.nova-dark .chart-box .table img { border-radius: 8px; border: 1px solid var(--nv-border); object-fit: cover; }
+
+/* Form elemanlari */
+.nova-dark label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--nv-text-soft);
+}
+.nova-dark textarea.form-control { min-height: 96px; resize: vertical; }
+.nova-dark select.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    padding-right: 38px;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%237d8598'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    background-size: 14px;
+}
+.nova-dark select.form-control option { background: var(--nv-surface-2); color: var(--nv-text); }
+
+/* Form icindeki <br /> bosluklari sadelestirilir */
+.nova-dark .chart-box form br { line-height: 10px; }
+
+/* Alt bilgi */
+.nova-dark .main-footer {
+    padding: 18px 30px;
+    margin-top: auto;
+    border-top: 1px solid var(--nv-border);
+    background: rgba(255, 255, 255, .015);
+    color: var(--nv-faint);
+    font-size: 12.5px;
+}
+.nova-dark .main-footer a { color: var(--nv-muted); }
+
+/* Admin sidebar'da uzun menu icin daha sik satirlar */
+.nova-dark .sidebar.sidebar-compact .nav-link { padding-top: 9px; padding-bottom: 9px; }
+.nova-dark .sidebar.sidebar-compact .nav-item { margin-bottom: 2px; }

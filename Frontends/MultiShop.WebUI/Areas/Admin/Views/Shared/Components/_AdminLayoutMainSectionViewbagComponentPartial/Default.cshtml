@@ -1,8 +1,29 @@
-﻿<section class="content-header">
-    <h1>@ViewBag.v0</h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-home"></i>@ViewBag.v1</a></li>
-        <li class="active"><i class="fa fa-envelope-o"></i>@ViewBag.v2</li>
-        <li class="active"><i class="fa fa-bars"></i>@ViewBag.v3</li>
-    </ol>
+﻿@{
+    string v0 = ViewBag.v0 as string;
+    string v1 = ViewBag.v1 as string;
+    string v2 = ViewBag.v2 as string;
+    string v3 = ViewBag.v3 as string;
+}
+
+<section class="content-header page-header">
+    <div>
+        <div class="breadcrumb-mini">
+            <i class="mdi mdi-home-outline"></i>
+            <span>@(string.IsNullOrWhiteSpace(v1) ? "Admin Paneli" : v1)</span>
+
+            @if (!string.IsNullOrWhiteSpace(v2))
+            {
+                <i class="mdi mdi-chevron-right"></i>
+                <span>@v2</span>
+            }
+
+            @if (!string.IsNullOrWhiteSpace(v3))
+            {
+                <i class="mdi mdi-chevron-right"></i>
+                <span>@v3</span>
+            }
+        </div>
+
+        <h1>@(string.IsNullOrWhiteSpace(v0) ? "Yönetim Paneli" : v0)</h1>
+    </div>
 </section>

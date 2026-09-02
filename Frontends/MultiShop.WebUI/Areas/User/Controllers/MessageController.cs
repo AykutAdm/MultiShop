@@ -5,6 +5,7 @@ using MultiShop.WebUI.Services.MessageServices;
 namespace MultiShop.WebUI.Areas.User.Controllers
 {
     [Area("User")]
+    [Route("User/Message")]
     public class MessageController : Controller
     {
         private readonly IMessageService _messageService;
@@ -15,6 +16,7 @@ namespace MultiShop.WebUI.Areas.User.Controllers
             _userService = userService;
         }
 
+        [Route("Inbox")]
         public async Task<IActionResult> Inbox()
         {
             var user = await _userService.GetUserInfo();
@@ -22,6 +24,7 @@ namespace MultiShop.WebUI.Areas.User.Controllers
             return View(values);
         }
 
+        [Route("Sendbox")]
         public async Task<IActionResult> Sendbox()
         {
             var user = await _userService.GetUserInfo();

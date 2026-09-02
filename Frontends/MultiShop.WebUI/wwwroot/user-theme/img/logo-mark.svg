@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" role="img" aria-label="MultiShop">
+  <defs>
+    <linearGradient id="nvLogoBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7C9BFF"/>
+      <stop offset="55%" stop-color="#6C8CFF"/>
+      <stop offset="100%" stop-color="#A06BFF"/>
+    </linearGradient>
+    <linearGradient id="nvLogoShine" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity=".28"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Zemin -->
+  <rect width="48" height="48" rx="14" fill="url(#nvLogoBg)"/>
+  <rect width="48" height="48" rx="14" fill="url(#nvLogoShine)"/>
+  <rect x=".6" y=".6" width="46.8" height="46.8" rx="13.4" fill="none" stroke="#ffffff" stroke-opacity=".22"/>
+
+  <!-- Canta sapi -->
+  <path d="M18.6 17.8v-3.4a5.4 5.4 0 0 1 10.8 0v3.4"
+        fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round"/>
+
+  <!-- Alisveris cantasi govdesi -->
+  <path d="M13.1 15.6h21.8a1.7 1.7 0 0 1 1.69 1.86l-1.38 14.9a4.2 4.2 0 0 1-4.18 3.81H17.0a4.2 4.2 0 0 1-4.18-3.81l-1.38-14.9a1.7 1.7 0 0 1 1.69-1.86Z"
+        fill="#ffffff" fill-opacity=".95"/>
+
+  <!-- Govde uzerindeki M monogrami -->
+  <path d="M18.4 29.6l1.95-7.4 3.65 4.85 3.65-4.85 1.95 7.4"
+        fill="none" stroke="#5A72E8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

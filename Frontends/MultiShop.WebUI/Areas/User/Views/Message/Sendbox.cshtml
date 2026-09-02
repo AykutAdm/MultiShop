@@ -3,18 +3,46 @@
     ViewData["Title"] = "Sendbox";
     Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
     int count = 0;
-}
 
+    var readCount = Model.Count(x => x.IsRead);
+}
 
 <div class="main-panel">
     <div class="content-wrapper">
+
+        <!-- Sayfa başlığı -->
+        <div class="page-header">
+            <div>
+                <div class="breadcrumb-mini">
+                    <i class="mdi mdi-home-outline"></i>
+                    <span>Kullanıcı Paneli</span>
+                    <i class="mdi mdi-chevron-right"></i>
+                    <span>Mesajlarım</span>
+                </div>
+                <h3>Gönderilen Mesajlar</h3>
+                <p class="page-subtitle">Gönderdiğiniz mesajların durumunu buradan takip edebilirsiniz.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <span class="badge-soft is-accent">@Model.Count mesaj</span>
+                <span class="badge-soft is-success">@readCount okundu</span>
+                <a class="btn btn-ghost" href="/User/Message/Inbox">
+                    <i class="mdi mdi-inbox-arrow-down-outline"></i> Gelen Kutusu
+                </a>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Gönderilen Mesaj Listesi</h4>
-                        <div class="table-responsive pt-3">
-                            <table class="table table-bordered">
+                    <div class="card-header">
+                        <div>
+                            <h4 class="card-title"><i class="mdi mdi-send-outline"></i> Gönderilen Mesaj Listesi</h4>
+                            <div class="card-subtitle mb-0">Toplam @Model.Count kayıt listeleniyor</div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -22,8 +50,7 @@
                                         <th>Konu</th>
                                         <th>Tarih</th>
                                         <th>Durum</th>
-                                        <th>Sil</th>
-                                        <th>Mesajı Aç</th>
+                                        <th class="text-end">İşlemler</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -32,21 +59,51 @@
                                         count++;
                                         <tr>
                                             <th>@count</th>
-                                            <td>@item.SenderId</td>
-                                            <td>@item.Subject</td>
+                                            <td>
+                                                <div class="cell-user">
+                                                    <span class="avatar-fallback"><i class="mdi mdi-account"></i></span>
+                                                    <span class="cell-mono">@item.SenderId</span>
+                                                </div>
+                                            </td>
+                                            <td class="cell-strong">@item.Subject</td>
                                             <td>@(((DateTime)item.MessageDate).ToString("dd-MMM-yyyy"))</td>
-                                            <td>@item.IsRead</td>
-                                            <td><a href="#" class="btn btn-danger">Sil</a></td>
-                                            <td><a href="#" class="btn btn-info">Mesajı Aç</a></td>
+                                            <td>
+                                                @if (item.IsRead)
+                                                {
+                                                    <span class="badge-soft is-success">Okundu</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge-soft is-muted">Bekliyor</span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <div class="row-actions justify-content-end">
+                                                    <a href="#" class="btn btn-info btn-sm">
+                                                        <i class="mdi mdi-email-open-outline"></i> Mesajı Aç
+                                                    </a>
+                                                    <a href="#" class="btn btn-danger btn-sm btn-icon" title="Sil">
+                                                        <i class="mdi mdi-trash-can-outline"></i>
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
+
+                            @if (!Model.Any())
+                            {
+                                <div class="table-empty">
+                                    <i class="mdi mdi-send-outline"></i>
+                                    <p>Henüz gönderilmiş bir mesajınız bulunmuyor.</p>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
-

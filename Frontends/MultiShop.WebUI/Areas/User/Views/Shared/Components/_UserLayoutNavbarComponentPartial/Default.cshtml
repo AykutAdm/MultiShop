@@ -1,158 +1,115 @@
-﻿﻿<nav class="navbar col-lg-12 col-12 px-0 py-0 py-lg-4 d-flex flex-row">
-    <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
-        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
-            <span class="mdi mdi-menu"></span>
-        </button>
-        <div class="navbar-brand-wrapper">
-            <a class="navbar-brand brand-logo" href="../../index.html"><img src="~/spica/images/logo.svg" alt="logo" /></a>
-            <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="~/spica/images/logo-mini.svg" alt="logo" /></a>
-        </div>
-        <h4 class="font-weight-bold mb-0 d-none d-md-block mt-1">Tekrar hoş geldiniz, Ali Yıldırım</h4>
-        <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item">
-                <h4 class="mb-0 font-weight-bold d-none d-xl-block">@(((DateTime.Now)).ToString("dd-MMM-yyyy"))</h4>
-            </li>
-            <li class="nav-item dropdown mr-1">
-                <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-toggle="dropdown">
-                    <i class="mdi mdi-calendar mx-0"></i>
-                    <span class="count bg-info">2</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
-                    <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../../images/faces/face4.jpg" alt="image" class="profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow">
-                            <h6 class="preview-subject ellipsis font-weight-normal">
-                                David Grey
-                            </h6>
-                            <p class="font-weight-light small-text text-muted mb-0">
-                                The meeting is cancelled
-                            </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../../images/faces/face2.jpg" alt="image" class="profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow">
-                            <h6 class="preview-subject ellipsis font-weight-normal">
-                                Tim Cook
-                            </h6>
-                            <p class="font-weight-light small-text text-muted mb-0">
-                                New product launch
-                            </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <img src="../../images/faces/face3.jpg" alt="image" class="profile-pic">
-                        </div>
-                        <div class="preview-item-content flex-grow">
-                            <h6 class="preview-subject ellipsis font-weight-normal">
-                                Johnson
-                            </h6>
-                            <p class="font-weight-light small-text text-muted mb-0">
-                                Upcoming board meeting
-                            </p>
-                        </div>
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item dropdown mr-2">
-                <a class="nav-link count-indicator dropdown-toggle d-flex align-items-center justify-content-center" id="notificationDropdown" href="#" data-toggle="dropdown">
-                    <i class="mdi mdi-email-open mx-0"></i>
-                    <span class="count bg-danger">1</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
-                    <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-success">
-                                <i class="mdi mdi-information mx-0"></i>
-                            </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <h6 class="preview-subject font-weight-normal">Application Error</h6>
-                            <p class="font-weight-light small-text mb-0 text-muted">
-                                Just now
-                            </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-warning">
-                                <i class="mdi mdi-settings mx-0"></i>
-                            </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <h6 class="preview-subject font-weight-normal">Settings</h6>
-                            <p class="font-weight-light small-text mb-0 text-muted">
-                                Private message
-                            </p>
-                        </div>
-                    </a>
-                    <a class="dropdown-item preview-item">
-                        <div class="preview-thumbnail">
-                            <div class="preview-icon bg-info">
-                                <i class="mdi mdi-account-box mx-0"></i>
-                            </div>
-                        </div>
-                        <div class="preview-item-content">
-                            <h6 class="preview-subject font-weight-normal">New user registration</h6>
-                            <p class="font-weight-light small-text mb-0 text-muted">
-                                2 days ago
-                            </p>
-                        </div>
-                    </a>
-                </div>
-            </li>
-        </ul>
-        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
-            <span class="mdi mdi-menu"></span>
-        </button>
+﻿@{
+    var navUserName = User?.Identity?.IsAuthenticated == true && !string.IsNullOrWhiteSpace(User.Identity.Name)
+        ? User.Identity.Name
+        : "Ali Yıldırım";
+
+    var navInitials = string.Join("", navUserName
+        .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+        .Take(2)
+        .Select(x => char.ToUpperInvariant(x[0])));
+
+    var greeting = DateTime.Now.Hour < 12 ? "Günaydın" : DateTime.Now.Hour < 18 ? "İyi günler" : "İyi akşamlar";
+}
+
+<nav class="navbar">
+
+    <!-- Sidebar aç / daralt -->
+    <button class="navbar-toggler" type="button" data-toggle="minimize" aria-label="Menüyü aç veya daralt">
+        <span class="mdi mdi-menu"></span>
+    </button>
+
+    <!-- Başlık -->
+    <div class="navbar-title d-none d-md-block">
+        <h4>@greeting, @navUserName</h4>
+        <span>@DateTime.Now.ToString("dd MMMM yyyy, dddd")</span>
     </div>
-    <div class="navbar-menu-wrapper navbar-search-wrapper d-none d-lg-flex align-items-center">
-        <ul class="navbar-nav mr-lg-2">
-            <li class="nav-item nav-search d-none d-lg-block">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Aranacak Kelimeler..." aria-label="search" aria-describedby="search">
-                </div>
-            </li>
-        </ul>
-        <ul class="navbar-nav navbar-nav-right">
-            <li class="nav-item nav-profile dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-                    <img src="~/spica//images/faces/face5.jpg" alt="profile" />
-                    <span class="nav-profile-name">Ali Yıldırım</span>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
-                        <i class="mdi mdi-settings text-primary"></i>
-                        Settings
-                    </a>
-                    <a class="dropdown-item">
-                        <i class="mdi mdi-logout text-primary"></i>
-                        Logout
-                    </a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link icon-link">
-                    <i class="mdi mdi-plus-circle-outline"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link icon-link">
-                    <i class="mdi mdi-web"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link icon-link">
-                    <i class="mdi mdi-clock-outline"></i>
-                </a>
-            </li>
-        </ul>
+
+    <!-- Arama -->
+    <div class="topbar-search d-none d-lg-block ms-3">
+        <i class="mdi mdi-magnify"></i>
+        <input type="text" class="form-control" placeholder="Sipariş, mesaj veya ürün ara..." aria-label="Ara">
     </div>
+
+    <ul class="navbar-nav ms-auto">
+
+        <!-- Takvim -->
+        <li class="nav-item dropdown d-none d-sm-flex">
+            <a class="topbar-icon-btn dropdown-toggle" href="#" id="calendarDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-calendar-blank-outline"></i>
+                <span class="count bg-info">2</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="calendarDropdown">
+                <div class="dropdown-header">Yaklaşan</div>
+                <a class="dropdown-item" href="#">
+                    <span class="preview-icon bg-info"><i class="mdi mdi-truck-outline"></i></span>
+                    <span class="preview-item-content">
+                        <span class="preview-subject">Kargo teslimatı</span>
+                        <span class="preview-text">Yarın, 14:00 - 18:00</span>
+                    </span>
+                </a>
+                <a class="dropdown-item" href="#">
+                    <span class="preview-icon bg-warning"><i class="mdi mdi-tag-outline"></i></span>
+                    <span class="preview-item-content">
+                        <span class="preview-subject">Kampanya bitişi</span>
+                        <span class="preview-text">3 gün sonra</span>
+                    </span>
+                </a>
+            </div>
+        </li>
+
+        <!-- Mesajlar -->
+        <li class="nav-item dropdown">
+            <a class="topbar-icon-btn dropdown-toggle" href="#" id="messageDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="mdi mdi-email-outline"></i>
+                <span class="count bg-danger">1</span>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="messageDropdown">
+                <div class="dropdown-header">Mesajlar</div>
+                <a class="dropdown-item" href="/User/Message/Inbox">
+                    <span class="preview-icon bg-success"><i class="mdi mdi-inbox-arrow-down"></i></span>
+                    <span class="preview-item-content">
+                        <span class="preview-subject">Gelen kutusu</span>
+                        <span class="preview-text">Okunmamış mesajlarınız</span>
+                    </span>
+                </a>
+                <a class="dropdown-item" href="/User/Message/Sendbox">
+                    <span class="preview-icon bg-info"><i class="mdi mdi-send"></i></span>
+                    <span class="preview-item-content">
+                        <span class="preview-subject">Gönderilenler</span>
+                        <span class="preview-text">Gönderdiğiniz mesajlar</span>
+                    </span>
+                </a>
+            </div>
+        </li>
+
+        <!-- Profil -->
+        <li class="nav-item nav-profile dropdown ms-1">
+            <a class="topbar-profile dropdown-toggle" href="#" id="profileDropdown" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="avatar-fallback">@navInitials</span>
+                <span class="nav-profile-name d-none d-sm-inline">@navUserName</span>
+                <i class="mdi mdi-chevron-down"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
+                <div class="dropdown-header">Hesabım</div>
+                <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-account-outline"></i> Profilim
+                </a>
+                <a class="dropdown-item" href="/User/MyOrder/MyOrderList">
+                    <i class="mdi mdi-package-variant-closed"></i> Siparişlerim
+                </a>
+                <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-cog-outline"></i> Ayarlar
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">
+                    <i class="mdi mdi-logout-variant"></i> Çıkış Yap
+                </a>
+            </div>
+        </li>
+
+    </ul>
+
 </nav>

@@ -3,52 +3,124 @@
     ViewData["Title"] = "MyOrderList";
     Layout = "~/Areas/User/Views/UserLayout/Index.cshtml";
     int count = 0;
-    string tableRowColor = "";
+
+    var totalSpent = Model.Sum(x => x.TotalPrice);
+    var lastOrderDate = Model.Any() ? Model.Max(x => x.OrderDate).ToString("dd MMM yyyy") : "-";
 }
 
 <div class="main-panel">
     <div class="content-wrapper">
+
+        <!-- Sayfa başlığı -->
+        <div class="page-header">
+            <div>
+                <div class="breadcrumb-mini">
+                    <i class="mdi mdi-home-outline"></i>
+                    <span>Kullanıcı Paneli</span>
+                    <i class="mdi mdi-chevron-right"></i>
+                    <span>Siparişlerim</span>
+                </div>
+                <h3>Sipariş Geçmişim</h3>
+                <p class="page-subtitle">Geçmiş siparişlerinizi ve tutarlarını buradan inceleyebilirsiniz.</p>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <a href="#" class="btn btn-ghost">
+                    <i class="mdi mdi-download-outline"></i> Dışa Aktar
+                </a>
+                <a href="#" class="btn btn-primary">
+                    <i class="mdi mdi-storefront-outline"></i> Alışverişe Devam Et
+                </a>
+            </div>
+        </div>
+
+        <!-- Özet kutuları -->
+        <div class="row">
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <div class="stat-icon tone-accent"><i class="mdi mdi-package-variant-closed"></i></div>
+                        <div class="stat-value">@Model.Count</div>
+                        <div class="stat-label">Toplam Sipariş</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <div class="stat-icon tone-success"><i class="mdi mdi-cash-multiple"></i></div>
+                        <div class="stat-value">@totalSpent.ToString("N2") ₺</div>
+                        <div class="stat-label">Toplam Harcama</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 grid-margin stretch-card">
+                <div class="card stat-card">
+                    <div class="card-body">
+                        <div class="stat-icon tone-info"><i class="mdi mdi-calendar-check-outline"></i></div>
+                        <div class="stat-value">@lastOrderDate</div>
+                        <div class="stat-label">Son Sipariş Tarihi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sipariş tablosu -->
         <div class="row">
             <div class="col-lg-12 grid-margin stretch-card">
                 <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Sipariş Geçmişim</h4>
-                        <div class="table-responsive pt-3">
-                            <table class="table table-bordered">
+                    <div class="card-header">
+                        <div>
+                            <h4 class="card-title"><i class="mdi mdi-history"></i> Sipariş Geçmişi</h4>
+                            <div class="card-subtitle mb-0">Toplam @Model.Count kayıt listeleniyor</div>
+                        </div>
+                    </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Sipariş No</th>
                                         <th>Toplam Fiyat</th>
                                         <th>Sipariş Tarihi</th>
-                                        <th>Sipariş Detayları</th>
+                                        <th>Durum</th>
+                                        <th class="text-end">İşlemler</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach (var item in Model)
                                     {
-
                                         count++;
-                                        if (count == 1) { tableRowColor = "table-info"; }
-                                        if (count == 2) { tableRowColor = "table-warning"; }
-                                        if (count == 3) { tableRowColor = "table-danger"; }
-                                        if (count == 4) { tableRowColor = "table-success"; }
-                                        if (count == 5) { tableRowColor = "table-primary"; }
-                                        if (count == 6) { tableRowColor = "table-dark"; }
-                                        if (count == 7) { tableRowColor = "table-secondary"; }
-                                        <tr class="@tableRowColor">
+                                        <tr>
                                             <th>@count</th>
-                                            <td>@item.TotalPrice</td>
+                                            <td class="cell-mono">#@item.OrderingId</td>
+                                            <td class="cell-price">@item.TotalPrice.ToString("N2") ₺</td>
                                             <td>@(((DateTime)item.OrderDate).ToString("dd-MMM-yyyy"))</td>
-                                            <td><a href="#" class="btn btn-warning">Sipariş Detayları</a></td>
+                                            <td><span class="badge-soft is-success">Tamamlandı</span></td>
+                                            <td>
+                                                <div class="row-actions justify-content-end">
+                                                    <a href="#" class="btn btn-warning btn-sm">
+                                                        <i class="mdi mdi-file-document-outline"></i> Sipariş Detayları
+                                                    </a>
+                                                </div>
+                                            </td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
+
+                            @if (!Model.Any())
+                            {
+                                <div class="table-empty">
+                                    <i class="mdi mdi-package-variant-closed-remove"></i>
+                                    <p>Henüz bir siparişiniz bulunmuyor.</p>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
 </div>
-

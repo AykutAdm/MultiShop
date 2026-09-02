@@ -3,36 +3,52 @@
 }
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 @await Component.InvokeAsync("_AdminLayoutHeadComponentPartial")
 
-<body class="sidebar-mini">
-    <div class="wrapper">
+<body class="nova-dark">
 
-        <!-- Main Header -->
-        @await Component.InvokeAsync("_AdminLayoutHeaderComponentPartial")
-        <!-- Left side column. contains the logo and sidebar -->
+    <div class="wrapper container-scroller">
+
+        <!-- Sol menü -->
         @await Component.InvokeAsync("_AdminLayoutSidebarComponentPartial")
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            @await Component.InvokeAsync("_AdminLayoutMainSectionViewbagComponentPartial")
-            <!-- Main content -->
-            @RenderBody()
-            <!-- content -->
+
+        <div class="sidebar-backdrop"></div>
+
+        <div class="page-body-wrapper">
+
+            <!-- Üst bar -->
+            @await Component.InvokeAsync("_AdminLayoutHeaderComponentPartial")
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+                    <!-- Sayfa başlığı (ViewBag) -->
+                    @await Component.InvokeAsync("_AdminLayoutMainSectionViewbagComponentPartial")
+
+                    <!-- Sayfa içeriği -->
+                    @RenderBody()
+
+                </div>
+            </div>
+
+            <footer class="main-footer">
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <span>Copyright &copy; @DateTime.Now.Year MultiShop. Tüm hakları saklıdır.</span>
+                    <span>Version 1.0</span>
+                </div>
+            </footer>
+
         </div>
-        <!-- content-wrapper -->
-        <!-- Main Footer -->
-        <footer class="main-footer dark-bg">
-            <div class="pull-right hidden-xs"> Version 1.0</div>
-            Copyright &copy; 2017 Yourdomian. All rights reserved.
-        </footer>
+
     </div>
-    <!-- wrapper -->
-    <!-- jQuery -->
-    <script src="~/MainDownload-OvioAdmin-html5-template/html/dist/js/jquery.min.js"></script>
-    <script src="~/MainDownload-OvioAdmin-html5-template/html/bootstrap/js/bootstrap.min.js"></script>
-    <script src="~/MainDownload-OvioAdmin-html5-template/html/dist/js/ovio.js"></script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/user-theme/js/dark-theme.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
