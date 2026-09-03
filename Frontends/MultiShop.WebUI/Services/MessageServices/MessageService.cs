@@ -32,4 +32,3 @@ namespace MultiShop.WebUI.Services.MessageServices
         }
     }
 }
-//http://localhost:7078/api/UserMessage/GetMessageSendbox?id=a
