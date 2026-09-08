@@ -1,4 +1,4 @@
-﻿<a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
+﻿<a href="#" class="btn btn-primary back-to-top" title="Yukarı çık"><i class="fa fa-angle-double-up"></i></a>
 
 
 <!-- JavaScript Libraries -->
@@ -13,3 +13,44 @@
 
 <!-- Template Javascript -->
 <script src="~/online-shop-website-template/js/main.js"></script>
+
+<!-- MultiShop Premium Dark - sadece gorunum yardimcilari -->
+<script>
+    (function () {
+        var root = document.documentElement;
+
+        var nav = document.querySelector('.ms-navbar');
+        if (nav) {
+            var onScroll = function () {
+                if (window.pageYOffset > 8) {
+                    nav.classList.add('ms-scrolled');
+                } else {
+                    nav.classList.remove('ms-scrolled');
+                }
+            };
+            onScroll();
+            window.addEventListener('scroll', onScroll, { passive: true });
+        }
+
+        var items = document.querySelectorAll('.ms-reveal');
+        var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        if (!items.length || reduced || !('IntersectionObserver' in window)) {
+            root.className = root.className.replace(' ms-anim', '');
+            return;
+        }
+
+        var io = new IntersectionObserver(function (entries) {
+            for (var i = 0; i < entries.length; i++) {
+                if (!entries[i].isIntersecting) { continue; }
+                entries[i].target.classList.add('ms-in');
+                io.unobserve(entries[i].target);
+            }
+        }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+        for (var i = 0; i < items.length; i++) {
+            items[i].style.transitionDelay = ((i % 6) * 50) + 'ms';
+            io.observe(items[i]);
+        }
+    })();
+</script>

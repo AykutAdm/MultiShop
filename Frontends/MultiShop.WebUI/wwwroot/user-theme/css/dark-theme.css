@@ -11,29 +11,30 @@
    1. DESIGN TOKENS
    ------------------------------------------------------------------ */
 :root {
-    /* Zemin katmanlari */
-    --nv-bg: #0a0b0f;
-    --nv-bg-soft: #0e1016;
-    --nv-surface: #12141b;
-    --nv-surface-2: #171a23;
-    --nv-surface-3: #1e2230;
-    --nv-elevated: #1a1d27;
+    /* Zemin katmanlari - magaza temasiyla ayni */
+    --nv-bg: #0B0D10;
+    --nv-bg-soft: #0F1217;
+    --nv-surface: #14181E;
+    --nv-surface-2: #1A1F27;
+    --nv-surface-3: #222933;
+    --nv-elevated: #171C23;
 
     /* Cizgiler */
-    --nv-border: rgba(255, 255, 255, .07);
-    --nv-border-strong: rgba(255, 255, 255, .12);
+    --nv-border: rgba(255, 255, 255, .075);
+    --nv-border-strong: rgba(255, 255, 255, .14);
 
     /* Yazi renkleri */
-    --nv-text: #e8eaf0;
-    --nv-text-soft: #b4bac9;
-    --nv-muted: #7d8598;
-    --nv-faint: #5b6273;
+    --nv-text: #E9ECF1;
+    --nv-text-soft: #B2BAC6;
+    --nv-muted: #98A1AF;
+    --nv-faint: #6B7482;
 
-    /* Vurgu renkleri */
-    --nv-accent: #6c8cff;
-    --nv-accent-2: #a06bff;
-    --nv-accent-soft: rgba(108, 140, 255, .14);
-    --nv-accent-glow: rgba(108, 140, 255, .35);
+    /* Vurgu: marka altini. Tek renk, gradyan yok. */
+    --nv-accent: #FFD333;
+    --nv-accent-2: #EFB61E;
+    --nv-accent-soft: rgba(255, 211, 51, .12);
+    --nv-accent-glow: rgba(255, 211, 51, .32);
+    --nv-ink: #0B0D10;
 
     /* Durum renkleri */
     --nv-success: #3ddc97;
@@ -45,16 +46,17 @@
     --nv-sidebar-w: 268px;
     --nv-sidebar-mini: 82px;
     --nv-topbar-h: 74px;
-    --nv-radius: 16px;
+    --nv-radius: 14px;
     --nv-radius-sm: 10px;
-    --nv-radius-lg: 22px;
+    --nv-radius-lg: 20px;
 
     /* Golgeler */
     --nv-shadow: 0 18px 46px -18px rgba(0, 0, 0, .85);
     --nv-shadow-sm: 0 8px 20px -12px rgba(0, 0, 0, .75);
 
     --nv-ease: cubic-bezier(.4, 0, .2, 1);
-    --nv-font: "Plus Jakarta Sans", "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --nv-font: "Inter", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    --nv-display: "Plus Jakarta Sans", "Inter", -apple-system, "Segoe UI", sans-serif;
 }
 
 /* ------------------------------------------------------------------
@@ -73,7 +75,11 @@
     text-rendering: optimizeLegibility;
 }
 
-/* Aurora isik huzmeleri */
+/* Zemin aydinlatmasi - "aurora" huzmeleri.
+   Animasyon degil: position:fixed oldugu icin icerik kayarken yerinde durur,
+   bu yuzden hareket ediyormus gibi okunur. Renkler altin paletine cekildi,
+   huzmeler icerik alanina konumlandi (sol ust sidebar tarafindan orulyordu).
+   Izgara dokusu geri getirilmedi. */
 .nova-dark::before {
     content: "";
     position: fixed;
@@ -81,25 +87,9 @@
     z-index: 0;
     pointer-events: none;
     background:
-        radial-gradient(760px 420px at 12% -6%, rgba(108, 140, 255, .20), transparent 62%),
-        radial-gradient(640px 420px at 92% 4%, rgba(160, 107, 255, .16), transparent 60%),
-        radial-gradient(720px 480px at 68% 102%, rgba(61, 220, 151, .09), transparent 62%);
-}
-
-/* Ince izgara dokusu */
-.nova-dark::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    opacity: .5;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, .022) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, .022) 1px, transparent 1px);
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 78%);
-    mask-image: radial-gradient(circle at 50% 0%, #000 0%, transparent 78%);
+        radial-gradient(820px 460px at 34% -6%, rgba(255, 211, 51, .15), transparent 62%),
+        radial-gradient(700px 440px at 92% 6%, rgba(255, 255, 255, .055), transparent 60%),
+        radial-gradient(780px 500px at 68% 104%, rgba(255, 211, 51, .07), transparent 62%);
 }
 
 .nova-dark > * {
@@ -114,12 +104,13 @@
 .nova-dark h5,
 .nova-dark h6 {
     color: var(--nv-text);
+    font-family: var(--nv-display);
     font-weight: 700;
-    letter-spacing: -.2px;
+    letter-spacing: -.4px;
 }
 
 .nova-dark a { color: var(--nv-accent); text-decoration: none; transition: color .18s var(--nv-ease); }
-.nova-dark a:hover { color: #9db0ff; }
+.nova-dark a:hover { color: #FFE47A; }
 .nova-dark p { color: var(--nv-text-soft); }
 .nova-dark hr { border-color: var(--nv-border); opacity: 1; }
 .nova-dark ::selection { background: var(--nv-accent-glow); color: #fff; }
@@ -164,6 +155,7 @@
 .nova-dark.sidebar-icon-only .sidebar .sidebar-brand-text,
 .nova-dark.sidebar-icon-only .sidebar .sidebar-user-meta,
 .nova-dark.sidebar-icon-only .sidebar .nav-badge { display: none; }
+.nova-dark.sidebar-icon-only .sidebar .sidebar-brand-mark { display: block; }
 .nova-dark.sidebar-icon-only .sidebar .nav-link { justify-content: center; padding-left: 0; padding-right: 0; }
 .nova-dark.sidebar-icon-only .sidebar-brand,
 .nova-dark.sidebar-icon-only .sidebar-user { justify-content: center; }
@@ -181,9 +173,8 @@
     display: flex;
     flex-direction: column;
     padding: 0;
-    background: linear-gradient(180deg, #12141b 0%, #0d0f15 100%);
+    background: var(--nv-bg-soft);
     border-right: 1px solid var(--nv-border);
-    box-shadow: 1px 0 0 rgba(255, 255, 255, .02), var(--nv-shadow);
     transition: width .28s var(--nv-ease), transform .28s var(--nv-ease);
 }
 
@@ -204,60 +195,73 @@
     flex: 0 0 36px;
     display: grid;
     place-items: center;
-    border-radius: 11px;
-    background: linear-gradient(135deg, var(--nv-accent) 0%, var(--nv-accent-2) 100%);
-    color: #fff;
-    font-size: 19px;
+    border-radius: 10px;
+    background: var(--nv-accent);
+    color: var(--nv-ink);
+    font-family: var(--nv-display);
+    font-size: 18px;
     font-weight: 800;
-    box-shadow: 0 8px 20px -8px var(--nv-accent-glow);
 }
 
 /* Marka blogu link olarak kullanildiginda */
 .nova-dark a.sidebar-brand { color: inherit; text-decoration: none; }
 .nova-dark a.sidebar-brand:hover { background: rgba(255, 255, 255, .03); }
 
-/* SVG marka isareti */
+/* Daraltilmis sidebar'daki monogram - normalde gizli, kutusuz */
 .nova-dark .sidebar-brand-mark {
-    width: 38px;
-    height: 38px;
-    flex: 0 0 38px;
-    display: block;
-    border-radius: 12px;
-    box-shadow: 0 10px 24px -10px var(--nv-accent-glow);
-    transition: transform .22s var(--nv-ease), box-shadow .22s var(--nv-ease);
-}
-.nova-dark .sidebar-brand-mark img {
-    width: 100%;
-    height: 100%;
-    display: block;
-}
-.nova-dark a.sidebar-brand:hover .sidebar-brand-mark {
-    transform: translateY(-1px) scale(1.04);
-    box-shadow: 0 14px 30px -10px var(--nv-accent-glow);
-}
-
-/* Kelime markasindaki vurgulu yarim */
-.nova-dark .brand-accent {
-    background: linear-gradient(100deg, var(--nv-accent) 0%, var(--nv-accent-2) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: var(--nv-accent);
-}
-
-.nova-dark .sidebar-brand-text {
-    font-size: 16px;
+    display: none;
+    font-family: var(--nv-display);
+    font-size: 20px;
     font-weight: 800;
-    letter-spacing: -.3px;
+    letter-spacing: -1px;
+    color: #fff;
+    line-height: 1;
+}
+.nova-dark .sidebar-brand-mark::after {
+    content: "";
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-left: 3px;
+    border-radius: 50%;
+    background: var(--nv-accent);
+    vertical-align: baseline;
+}
+
+/* Wordmark: "Multi" ince, "Shop" kalin, sonda altin nokta. Gradyan yok. */
+.nova-dark .sidebar-brand-text {
+    font-family: var(--nv-display);
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -.75px;
     color: #fff;
     white-space: nowrap;
-    line-height: 1.25;
+    line-height: 1.2;
+}
+.nova-dark .brand-accent {
+    color: #fff;
+    font-weight: 800;
+}
+.nova-dark .sidebar-brand-text > .brand-lite {
+    font-weight: 400;
+    color: var(--nv-muted);
+}
+.nova-dark .sidebar-brand-text > .brand-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    margin-left: 4px;
+    border-radius: 50%;
+    background: var(--nv-accent);
+    vertical-align: baseline;
 }
 .nova-dark .sidebar-brand-text small {
     display: block;
-    font-size: 10.5px;
+    margin-top: 4px;
+    font-family: var(--nv-font);
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: 1.4px;
+    letter-spacing: 1.6px;
     text-transform: uppercase;
     color: var(--nv-faint);
 }
@@ -307,15 +311,40 @@
     transition: color .18s var(--nv-ease);
 }
 
+/* Bolum tonlari - renk burada dekorasyon degil, gruplama bilgisi.
+   Genel kardes secici sayesinde her kategori kendinden sonraki
+   tum menu ogelerini boyar, bir sonraki kategori devrali alir. */
+.nova-dark .sidebar .tone-blue ~ .nav-item .menu-icon { color: #7BA7F5; }
+.nova-dark .sidebar .tone-mint ~ .nav-item .menu-icon { color: #57C9A4; }
+.nova-dark .sidebar .tone-violet ~ .nav-item .menu-icon { color: #B98CF0; }
+.nova-dark .sidebar .tone-slate ~ .nav-item .menu-icon { color: #8B96A8; }
+
+/* Kategori etiketinin yanindaki renkli tire */
+.nova-dark .sidebar .sidebar-category p::before {
+    content: "";
+    display: inline-block;
+    width: 13px;
+    height: 2px;
+    margin-right: 9px;
+    border-radius: 2px;
+    background: var(--nv-faint);
+    vertical-align: middle;
+}
+.nova-dark .sidebar .tone-blue p::before { background: #7BA7F5; }
+.nova-dark .sidebar .tone-mint p::before { background: #57C9A4; }
+.nova-dark .sidebar .tone-violet p::before { background: #B98CF0; }
+.nova-dark .sidebar .tone-slate p::before { background: #8B96A8; }
+
 .nova-dark .sidebar .nav-link:hover {
     background: rgba(255, 255, 255, .045);
     color: #fff;
     transform: translateX(2px);
 }
-.nova-dark .sidebar .nav-link:hover .menu-icon { color: var(--nv-accent); }
+/* Hover'da bolum rengi korunur, sadece parlar. Altin yalnizca aktif ogenin. */
+.nova-dark .sidebar .nav-link:hover .menu-icon { filter: brightness(1.3); }
 
 .nova-dark .sidebar .nav-link.active {
-    background: linear-gradient(90deg, var(--nv-accent-soft) 0%, rgba(160, 107, 255, .06) 100%);
+    background: var(--nv-accent-soft);
     color: #fff;
     font-weight: 600;
 }
@@ -329,8 +358,7 @@
     width: 3px;
     height: 22px;
     border-radius: 0 4px 4px 0;
-    background: linear-gradient(180deg, var(--nv-accent), var(--nv-accent-2));
-    box-shadow: 0 0 14px var(--nv-accent-glow);
+    background: var(--nv-accent);
 }
 
 /* Menu sagindaki rozet */
@@ -340,7 +368,7 @@
     padding: 1px 7px;
     border-radius: 999px;
     background: var(--nv-accent-soft);
-    color: #a9bcff;
+    color: var(--nv-accent);
     font-size: 11px;
     font-weight: 700;
     text-align: center;
@@ -376,10 +404,11 @@
     border-radius: 50%;
     display: grid;
     place-items: center;
-    font-weight: 700;
+    font-family: var(--nv-display);
+    font-weight: 800;
     font-size: 13px;
-    color: #fff;
-    background: linear-gradient(135deg, var(--nv-accent), var(--nv-accent-2));
+    color: var(--nv-ink);
+    background: var(--nv-accent);
 }
 .nova-dark .sidebar-user-meta { min-width: 0; }
 .nova-dark .sidebar-user-meta strong {
@@ -409,7 +438,7 @@
     display: flex;
     align-items: center;
     gap: 16px;
-    background: rgba(10, 11, 15, .72);
+    background: rgba(11, 13, 16, .72);
     -webkit-backdrop-filter: saturate(160%) blur(14px);
     backdrop-filter: saturate(160%) blur(14px);
     border-bottom: 1px solid var(--nv-border);
@@ -647,7 +676,7 @@
     position: relative;
     border: 1px solid var(--nv-border);
     border-radius: var(--nv-radius);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .028) 0%, rgba(255, 255, 255, .008) 100%), var(--nv-surface);
+    background: var(--nv-surface);
     box-shadow: var(--nv-shadow-sm);
     color: var(--nv-text);
     overflow: hidden;
@@ -658,7 +687,7 @@
     position: absolute;
     inset: 0 0 auto 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .16), transparent);
+    background: var(--nv-border);
 }
 .nova-dark .card:hover { border-color: var(--nv-border-strong); }
 .nova-dark .card-body { padding: 24px 26px; }
@@ -809,7 +838,7 @@
 .nova-dark .badge-soft.is-warning { background: rgba(245, 181, 68, .12); color: var(--nv-warning); border-color: rgba(245, 181, 68, .26); }
 .nova-dark .badge-soft.is-danger { background: rgba(255, 107, 107, .12); color: var(--nv-danger); border-color: rgba(255, 107, 107, .26); }
 .nova-dark .badge-soft.is-info { background: rgba(69, 200, 241, .12); color: var(--nv-info); border-color: rgba(69, 200, 241, .26); }
-.nova-dark .badge-soft.is-accent { background: var(--nv-accent-soft); color: #9db0ff; border-color: rgba(108, 140, 255, .26); }
+.nova-dark .badge-soft.is-accent { background: var(--nv-accent-soft); color: var(--nv-accent); border-color: rgba(255, 211, 51, .26); }
 .nova-dark .badge-soft.is-muted { background: rgba(255, 255, 255, .05); color: var(--nv-muted); border-color: var(--nv-border); }
 
 /* ------------------------------------------------------------------
@@ -835,12 +864,12 @@
 .nova-dark .btn-icon { width: 34px; height: 34px; padding: 0; border-radius: 9px; }
 
 .nova-dark .btn-primary {
-    background: linear-gradient(135deg, var(--nv-accent) 0%, #5a76ff 100%);
+    background: linear-gradient(180deg, #FFDE63, #F1BC24);
     border-color: transparent;
-    color: #fff;
-    box-shadow: 0 10px 24px -14px var(--nv-accent-glow);
+    color: var(--nv-ink);
+    box-shadow: 0 12px 26px -16px var(--nv-accent-glow);
 }
-.nova-dark .btn-primary:hover { filter: brightness(1.08); transform: translateY(-1px); color: #fff; }
+.nova-dark .btn-primary:hover { filter: brightness(1.07); transform: translateY(-1px); color: var(--nv-ink); }
 
 .nova-dark .btn-ghost {
     background: rgba(255, 255, 255, .04);
@@ -861,12 +890,16 @@
 }
 .nova-dark .btn-info { border-color: rgba(69, 200, 241, .30); color: var(--nv-info); }
 .nova-dark .btn-info:hover { background: rgba(69, 200, 241, .16); color: #bdeeff; border-color: rgba(69, 200, 241, .50); }
-.nova-dark .btn-danger { border-color: rgba(255, 107, 107, .30); color: var(--nv-danger); }
-.nova-dark .btn-danger:hover { background: rgba(255, 107, 107, .16); color: #ffc7c7; border-color: rgba(255, 107, 107, .50); }
+.nova-dark .btn-danger { border-color: rgba(255, 107, 107, .22); color: #E8837B; }
+.nova-dark .btn-danger:hover { background: #DC4B45; color: #fff; border-color: #DC4B45; }
 .nova-dark .btn-warning { border-color: rgba(245, 181, 68, .30); color: var(--nv-warning); }
 .nova-dark .btn-warning:hover { background: rgba(245, 181, 68, .16); color: #ffdc9c; border-color: rgba(245, 181, 68, .50); }
-.nova-dark .btn-success { border-color: rgba(61, 220, 151, .30); color: var(--nv-success); }
-.nova-dark .btn-success:hover { background: rgba(61, 220, 151, .16); color: #adf5d6; border-color: rgba(61, 220, 151, .50); }
+/* Bu projede btn-success yalnizca "Guncelle" aksiyonu icin kullaniliyor,
+   bir basari durumu bildirmiyor. Yesil yerine duzenleme mavisi:
+   kirmizi "Sil" ile birlikte iki net aksiyon rengi verir, altin ise
+   sayfanin birincil butonuna (Yeni Kayit) ayrilmis kalir. */
+.nova-dark .btn-success { border-color: rgba(123, 167, 245, .26); color: #8FB6F7; }
+.nova-dark .btn-success:hover { background: #4E86E8; color: #fff; border-color: #4E86E8; }
 .nova-dark .btn-secondary { border-color: var(--nv-border); color: var(--nv-text-soft); }
 .nova-dark .btn-secondary:hover { background: rgba(255, 255, 255, .09); color: #fff; }
 
@@ -887,7 +920,7 @@
 .nova-dark .form-control:focus,
 .nova-dark .form-select:focus {
     background: rgba(255, 255, 255, .06);
-    border-color: rgba(108, 140, 255, .55);
+    border-color: rgba(255, 211, 51, .55);
     color: var(--nv-text);
     box-shadow: 0 0 0 3px var(--nv-accent-soft);
     outline: none;
@@ -913,7 +946,7 @@
     from { opacity: 0; transform: translateY(12px); }
     to { opacity: 1; transform: none; }
 }
-.nova-dark .content-wrapper > * { animation: nvFadeUp .38s var(--nv-ease) both; }
+.nova-dark .content-wrapper > * { animation: nvFadeUp .32s var(--nv-ease) both; }
 
 @media (prefers-reduced-motion: reduce) {
     .nova-dark *,
@@ -937,6 +970,7 @@
     .nova-dark.sidebar-icon-only .sidebar .sidebar-category,
     .nova-dark.sidebar-icon-only .sidebar .sidebar-brand-text,
     .nova-dark.sidebar-icon-only .sidebar .sidebar-user-meta { display: block; }
+    .nova-dark.sidebar-icon-only .sidebar .sidebar-brand-mark { display: none; }
     .nova-dark.sidebar-icon-only .sidebar .nav-link { justify-content: flex-start; padding-left: 14px; padding-right: 14px; }
     .nova-dark .navbar { padding: 0 18px; }
     .nova-dark .content-wrapper { padding: 20px 18px 36px; }
@@ -1017,7 +1051,7 @@
     margin-bottom: 24px;
     border: 1px solid var(--nv-border);
     border-radius: var(--nv-radius);
-    background: linear-gradient(180deg, rgba(255, 255, 255, .028) 0%, rgba(255, 255, 255, .008) 100%), var(--nv-surface);
+    background: var(--nv-surface);
     box-shadow: var(--nv-shadow-sm);
     color: var(--nv-text);
     overflow: hidden;
@@ -1028,7 +1062,7 @@
     position: absolute;
     inset: 0 0 auto 0;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .16), transparent);
+    background: var(--nv-border);
 }
 .nova-dark .chart-box:hover { border-color: var(--nv-border-strong); }
 .nova-dark .chart-box > h4 {

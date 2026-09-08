@@ -1,11 +1,9 @@
-﻿﻿<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-12">
-            <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="#">@ViewBag.directory1</a>
-                <a class="breadcrumb-item text-dark" href="#">@ViewBag.directory2</a>
-                <span class="breadcrumb-item active">@ViewBag.directory3</span>
-            </nav>
-        </div>
-    </div>
+﻿<div class="container-fluid px-xl-5">
+    <nav class="ms-crumb" aria-label="breadcrumb">
+        <a href="#">@ViewBag.directory1</a>
+        <i class="fa fa-angle-right ms-crumb-sep"></i>
+        <a href="#">@ViewBag.directory2</a>
+        <i class="fa fa-angle-right ms-crumb-sep"></i>
+        <span class="ms-crumb-active">@ViewBag.directory3</span>
+    </nav>
 </div>

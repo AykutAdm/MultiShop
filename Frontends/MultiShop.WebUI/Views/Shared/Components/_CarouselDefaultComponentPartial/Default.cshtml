@@ -4,53 +4,45 @@
     int count = 0;
 }
 
-<div class="container-fluid mb-3">
-    <div class="row px-xl-5">
+<div class="container-fluid px-xl-5 ms-hero">
+    <div class="row">
         <div class="col-lg-8">
-            <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
+            <div id="header-carousel" class="carousel slide carousel-fade ms-hero-main" data-ride="carousel">
                 <ol class="carousel-indicators">
-                    <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#header-carousel" data-slide-to="1"></li>
-                    <li data-target="#header-carousel" data-slide-to="2"></li>
-                    <li data-target="#header-carousel" data-slide-to="3"></li>
-                    <li data-target="#header-carousel" data-slide-to="4"></li>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <li data-target="#header-carousel" data-slide-to="@i" class="@(i == 0 ? "active" : "")"></li>
+                    }
                 </ol>
                 <div class="carousel-inner">
-
 
                     @foreach (var item in Model)
                     {
                         count++;
-                        if (count == 1)
-                        {
-                            <div class="carousel-item position-relative active" style="height: 430px;">
-                                <img class="position-absolute w-100 h-100" src="@item.ImageUrl" style="object-fit: cover;">
-                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                    <div class="p-3" style="max-width: 700px;">
-                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">@item.Title</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">@item.Description</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Alışverişe Başla</a>
-                                    </div>
+                        <div class="carousel-item ms-hero-slide @(count == 1 ? "active" : "")">
+                            <img src="@item.ImageUrl" alt="@item.Title">
+                            <span class="ms-hero-veil"></span>
+                            <div class="ms-hero-body">
+                                <span class="ms-hero-badge"><span></span>Yeni Sezon</span>
+                                <h1 class="ms-hero-title">@item.Title</h1>
+                                <p class="ms-hero-text">@item.Description</p>
+                                <div class="ms-hero-actions">
+                                    <a class="ms-btn ms-btn-gold" href="#">Alışverişe Başla <i class="fa fa-arrow-right"></i></a>
+                                    <a class="ms-btn ms-btn-ghost" href="#">Kampanyaları Gör</a>
                                 </div>
                             </div>
-                        }
-                        else if (count > 1)
-                        {
-                            <div class="carousel-item position-relative" style="height: 430px;">
-                                <img class="position-absolute w-100 h-100" src="@item.ImageUrl" style="object-fit: cover;">
-                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                    <div class="p-3" style="max-width: 700px;">
-                                        <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">@item.Title</h1>
-                                        <p class="mx-md-5 px-5 animate__animated animate__bounceIn">@item.Description</p>
-                                        <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Alışverişe Başla</a>
-                                    </div>
-                                </div>
-                            </div>
-                        }
-
+                        </div>
                     }
 
                 </div>
+                <a class="carousel-control-prev" href="#header-carousel" role="button" data-slide="prev">
+                    <span class="ms-hero-arrow"><i class="fa fa-angle-left"></i></span>
+                    <span class="sr-only">Önceki</span>
+                </a>
+                <a class="carousel-control-next" href="#header-carousel" role="button" data-slide="next">
+                    <span class="ms-hero-arrow"><i class="fa fa-angle-right"></i></span>
+                    <span class="sr-only">Sonraki</span>
+                </a>
             </div>
         </div>
         @await Component.InvokeAsync("_SpecialOfferComponentPartial")

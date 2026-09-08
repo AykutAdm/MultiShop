@@ -1,0 +1,149 @@
+/* =====================================================================
+   NOVA ACCOUNT  -  Musteri hesap paneli varyanti
+   dark-theme.css'in UZERINE biner, onu degistirmez.
+
+   Ayrimin mantigi: admin paneli bir is araci - yogun, hizli taranan,
+   renkle gruplanan. Hesap paneli ise magazanin devami - musteri oradan
+   geliyor. Bu yuzden fark renkte degil RITIMDE: daha ferah araliklar,
+   daha yumusak koseler, daha az gorsel gurultu.
+
+   Kullanim: <body class="nova-dark nv-account">
+   ===================================================================== */
+
+.nv-account {
+    /* Kose yaricaplari admin'e gore belirgin sekilde yumusak */
+    --nv-radius: 18px;
+    --nv-radius-sm: 12px;
+    --nv-radius-lg: 24px;
+
+    /* Daha genis sidebar, daha yuksek ust bar: nefes alani */
+    --nv-sidebar-w: 284px;
+    --nv-topbar-h: 82px;
+
+    /* Yuzeyler admin'den bir kademe acik; panel zeminden ayrisiyor */
+    --nv-surface: #171B22;
+    --nv-surface-2: #1E232B;
+    --nv-surface-3: #272D36;
+
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* ------------------------------------------------------------------
+   ZEMIN
+   Huzmeler magaza tarafiyla ayni sicaklikta ama daha yumusak ve
+   iceriye dogru kaydirilmis. Admin'deki ucuncu huzme burada yok.
+   ------------------------------------------------------------------ */
+.nova-dark.nv-account::before {
+    background:
+        radial-gradient(940px 540px at 24% -10%, rgba(255, 211, 51, .13), transparent 62%),
+        radial-gradient(780px 500px at 96% 10%, rgba(255, 255, 255, .04), transparent 60%);
+}
+
+/* ------------------------------------------------------------------
+   SIDEBAR
+   Admin'de neredeyse siyah bir kolon; burada zeminden ayrisan,
+   belirgin sekilde acik bir panel.
+   ------------------------------------------------------------------ */
+.nova-dark.nv-account .sidebar {
+    background: var(--nv-surface);
+    border-right: 1px solid var(--nv-border);
+}
+
+/* Not: bolum renk kodlamasi admin'e ozgu bir arac kalibi. Hesap
+   panelinin sidebar markup'inda tone-* siniflari yok, bu yuzden
+   ikonlar zaten tek tonda kaliyor - burada ezmeye gerek yok. */
+
+.nova-dark.nv-account .sidebar .nav { padding: 20px 16px 16px; }
+.nova-dark.nv-account .sidebar .nav-item { margin-bottom: 6px; }
+
+.nova-dark.nv-account .sidebar .nav-link {
+    padding: 13px 16px;
+    gap: 15px;
+    font-size: 14.5px;
+}
+
+/* Hover'da kaydirma yok - hesap panelinde daha sakin bir his */
+.nova-dark.nv-account .sidebar .nav-link:hover {
+    background: rgba(255, 255, 255, .05);
+    transform: none;
+}
+
+/* Aktif oge: admin'de ince altin tint + kenar cubugu.
+   Burada dolu altin hap - marka rengi one cikiyor, konum tek bakista belli. */
+.nova-dark.nv-account .sidebar .nav-link.active {
+    background: var(--nv-accent);
+    color: var(--nv-ink);
+    font-weight: 700;
+}
+
+.nova-dark.nv-account .sidebar .nav-link.active .menu-icon { color: var(--nv-ink); }
+.nova-dark.nv-account .sidebar .nav-link.active::before { display: none; }
+
+.nova-dark.nv-account .sidebar .sidebar-category { padding: 18px 14px 8px; }
+
+/* Alttaki kullanici blogu: admin'de bir imza satiri, burada musterinin
+   kendi karti. Cerceveli, zeminden ayrisan bir blok. */
+.nova-dark.nv-account .sidebar-user {
+    margin: 0 14px 16px;
+    padding: 14px;
+    border: 1px solid var(--nv-border);
+    border-top: 1px solid var(--nv-border);
+    border-radius: var(--nv-radius-sm);
+    background: var(--nv-surface-2);
+}
+
+/* ------------------------------------------------------------------
+   UST BAR
+   ------------------------------------------------------------------ */
+.nova-dark.nv-account .navbar { padding: 0 34px; }
+.nova-dark.nv-account .navbar-title h4 { font-size: 17px; }
+.nova-dark.nv-account .topbar-search .form-control { border-radius: 999px; }
+
+/* ------------------------------------------------------------------
+   ICERIK
+   Admin yogun veri gosterir, burada daha az sey daha genis gosterilir.
+   ------------------------------------------------------------------ */
+.nova-dark.nv-account .content-wrapper { padding: 34px 38px 60px; }
+.nova-dark.nv-account .card-body { padding: 28px 30px; }
+.nova-dark.nv-account .card-header { padding: 24px 30px; }
+.nova-dark.nv-account .grid-margin { margin-bottom: 28px; }
+
+.nova-dark.nv-account .page-header { margin-bottom: 30px; }
+.nova-dark.nv-account .page-header h3 { font-size: 26px; }
+.nova-dark.nv-account .page-subtitle { font-size: 14px; }
+
+/* Kartlar zeminden biraz daha net ayrisiyor */
+.nova-dark.nv-account .card {
+    background: var(--nv-surface);
+    box-shadow: 0 22px 46px -32px rgba(0, 0, 0, .95);
+}
+
+.nova-dark.nv-account .stat-card .card-body { padding: 26px 28px; }
+.nova-dark.nv-account .stat-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 23px;
+    margin-bottom: 16px;
+}
+.nova-dark.nv-account .stat-value { font-size: 30px; }
+.nova-dark.nv-account .stat-label { font-size: 13px; }
+
+/* Tablolar: satirlar arasi nefes acilir */
+.nova-dark.nv-account .table > thead > tr > th { padding: 15px 20px; }
+.nova-dark.nv-account .table > tbody > tr > td,
+.nova-dark.nv-account .table > tbody > tr > th { padding: 18px 20px; }
+
+/* Butonlar biraz daha dolgun */
+.nova-dark.nv-account .btn { padding: 11px 20px; font-size: 14px; }
+.nova-dark.nv-account .btn-sm { padding: 7px 14px; font-size: 13px; }
+
+/* ------------------------------------------------------------------
+   RESPONSIVE
+   ------------------------------------------------------------------ */
+@media (max-width: 991.98px) {
+    .nova-dark.nv-account .navbar { padding: 0 20px; }
+    .nova-dark.nv-account .content-wrapper { padding: 24px 20px 44px; }
+    .nova-dark.nv-account .card-body { padding: 22px 20px; }
+}

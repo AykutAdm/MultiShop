@@ -1,17 +1,23 @@
 ﻿@model List<ResultBrandDto>
 
-<div class="container-fluid py-5">
-    <div class="row px-xl-5">
-        <div class="col">
-            <div class="owl-carousel vendor-carousel">
+<div class="container-fluid px-xl-5 ms-section">
+    <div class="ms-head ms-reveal">
+        <div>
+            <span class="ms-kicker">İş Ortaklarımız</span>
+            <h2 class="ms-title">Anlaşmalı Markalar</h2>
+        </div>
+    </div>
 
-                @foreach (var item in Model)
-                {
-                    <div class="bg-light p-4" style="height:120px;width:150px">
-                        <img src="@item.ImageUrl" alt="">
-                    </div>
-                }
-            </div>
+    <div class="ms-brands ms-reveal">
+        <div class="owl-carousel vendor-carousel">
+
+            @foreach (var item in Model)
+            {
+                <div class="ms-brand">
+                    <img src="@item.ImageUrl" alt="@item.BrandName">
+                </div>
+            }
+
         </div>
     </div>
 </div>

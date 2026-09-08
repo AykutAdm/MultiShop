@@ -1,24 +1,39 @@
 ﻿@model List<ResultCategoryDto>
 
-<div class="container-fluid pt-5">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Öne Çıkan Kategoriler</span></h2>
-    <div class="row px-xl-5 pb-3">
+@{
+    // Katalogda henuz urun sayisi alani olmadigi icin vitrinde statik degerler gosteriliyor.
+    int[] urunSayilari = { 248, 1132, 415, 96, 187, 324, 76, 1512, 143, 268, 91, 357, 204, 68, 439, 115, 622, 179 };
+    int sira = 0;
+}
+
+<div class="container-fluid px-xl-5 ms-section">
+    <div class="ms-head ms-reveal">
+        <div>
+            <span class="ms-kicker">Koleksiyonlar</span>
+            <h2 class="ms-title">Öne Çıkan Kategoriler</h2>
+            <p class="ms-sub">Aradığınız ürüne en kısa yoldan ulaşın. Her kategori özenle seçilmiş parçalarla dolu.</p>
+        </div>
+        <a href="" class="ms-head-link">Tüm kategoriler <i class="fa fa-arrow-right"></i></a>
+    </div>
+
+    <div class="row">
 
         @foreach (var item in Model)
         {
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="@item.ImageUrl" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>@item.CategoryName</h6>
-                            <small class="text-body">0 Ürün</small>
-                        </div>
-                    </div>
+            int urunAdedi = urunSayilari[sira++ % urunSayilari.Length];
+
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <a class="ms-cat ms-reveal" href="">
+                    <span class="ms-cat-thumb">
+                        <img src="@item.ImageUrl" alt="@item.CategoryName">
+                    </span>
+                    <span class="ms-cat-body">
+                        <span class="ms-cat-name">@item.CategoryName</span>
+                        <span class="ms-cat-meta"><i class="fa fa-circle"></i>@urunAdedi.ToString("N0") Ürün</span>
+                    </span>
                 </a>
             </div>
         }
+
     </div>
 </div>
