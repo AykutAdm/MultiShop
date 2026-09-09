@@ -5,45 +5,111 @@
     Layout = "~/Views/UILayout/_UILayout.cshtml";
 }
 
-<!-- Contact Start -->
-<div class="container-fluid">
-    <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Bize Yazın</span></h2>
-    <div class="row px-xl-5">
-        <div class="col-lg-7 mb-5">
-            <div class="contact-form bg-light p-30">
+<div class="container-fluid px-xl-5 ms-section">
+
+    <div class="ms-head ms-reveal">
+        <div>
+            <span class="ms-kicker">İletişim</span>
+            <h2 class="ms-title">Size nasıl yardımcı olabiliriz?</h2>
+            <p class="ms-sub">Sorularınız, önerileriniz ve iş birliği talepleriniz için formu doldurmanız yeterli. Ekibimiz bir iş günü içinde size dönüş yapar.</p>
+        </div>
+        <a href="/Default/Index/" class="ms-head-link">Alışverişe dön <i class="fa fa-arrow-right"></i></a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-7 mb-4">
+            <div class="ms-panel ms-reveal">
+                <h5 class="ms-panel-title">Mesaj Gönderin</h5>
+                <p class="ms-panel-sub">Formu doldurduğunuzda mesajınız doğrudan destek ekibimize iletilir.</p>
+
                 <div id="success"></div>
+
                 <form method="post">
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="name" placeholder="Adınız soyadınız"
-                               required="required" data-validation-required-message="Lütfen boş geçmeyin" asp-for="NameSurname" />
-                        <p class="help-block text-danger"></p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="ms-field">
+                                <label class="ms-label" for="name">Ad Soyad</label>
+                                <input type="text" class="form-control" id="name" placeholder="Adınız soyadınız"
+                                       required="required" asp-for="NameSurname" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="ms-field">
+                                <label class="ms-label" for="email">E-posta</label>
+                                <input type="email" class="form-control" id="email" placeholder="ornek@@mail.com"
+                                       required="required" asp-for="Email" />
+                            </div>
+                        </div>
                     </div>
-                    <div class="control-group">
-                        <input type="email" class="form-control" id="email" placeholder="Email Adresiniz"
-                               required="required" data-validation-required-message="Lütfen boş geçmeyin" asp-for="Email" />
-                        <p class="help-block text-danger"></p>
+
+                    <div class="ms-field">
+                        <label class="ms-label" for="subject">Konu</label>
+                        <input type="text" class="form-control" id="subject" placeholder="Mesajınızın konusu"
+                               required="required" asp-for="Subject" />
                     </div>
-                    <div class="control-group">
-                        <input type="text" class="form-control" id="subject" placeholder="Mesaj Konusu" asp-for="Subject"
-                               required="required" data-validation-required-message="Lütfen boş geçmeyin" />
-                        <p class="help-block text-danger"></p>
+
+                    <div class="ms-field">
+                        <label class="ms-label" for="message">Mesajınız</label>
+                        <textarea class="form-control" rows="7" id="message" placeholder="Bize iletmek istediğiniz mesajı buraya yazın..."
+                                  required="required" asp-for="Message"></textarea>
                     </div>
-                    <div class="control-group">
-                        <textarea class="form-control" rows="8" id="message" placeholder="Mesajınız" asp-for="Message"
-                                  required="required"
-                                  data-validation-required-message="Lütfen boş geçmeyin"></textarea>
-                        <p class="help-block text-danger"></p>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary py-2 px-4" type="submit" id="sendMessageButton">
-                            Mesajı Gönder
-                        </button>
-                    </div>
+
+                    <button class="ms-btn ms-btn-gold" type="submit" id="sendMessageButton">
+                        Mesajı Gönder <i class="fa fa-paper-plane"></i>
+                    </button>
                 </form>
             </div>
         </div>
-        @await Component.InvokeAsync("_ContactDetailComponentPartial")
 
+        @await Component.InvokeAsync("_ContactDetailComponentPartial")
     </div>
+
+    <div class="ms-globe ms-reveal">
+        <svg class="ms-globe-art" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Dünya geneli teslimat">
+            <defs>
+                <radialGradient id="msGlobeGlow" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#FFD333" stop-opacity=".16" />
+                    <stop offset="100%" stop-color="#FFD333" stop-opacity="0" />
+                </radialGradient>
+            </defs>
+
+            <circle cx="110" cy="110" r="106" fill="url(#msGlobeGlow)" />
+
+            <g fill="none" stroke="#2E3742" stroke-width="1.1">
+                <circle cx="110" cy="110" r="86" stroke="#3E4854" stroke-width="1.5" />
+                <ellipse cx="110" cy="110" rx="86" ry="30" />
+                <ellipse cx="110" cy="110" rx="86" ry="60" />
+                <ellipse cx="110" cy="110" rx="30" ry="86" />
+                <ellipse cx="110" cy="110" rx="60" ry="86" />
+                <line x1="110" y1="24" x2="110" y2="196" />
+                <line x1="24" y1="110" x2="196" y2="110" />
+            </g>
+
+            <circle class="ms-globe-ping" cx="132" cy="82" r="11" fill="#FFD333" opacity=".3" />
+            <circle cx="132" cy="82" r="5" fill="#FFD333" />
+            <circle cx="132" cy="82" r="1.9" fill="#0B0D10" />
+        </svg>
+
+        <div>
+            <span class="ms-kicker">Global Erişim</span>
+            <h3 class="ms-title">Merkezimiz Ankara, erişimimiz dünya çapında</h3>
+            <p class="ms-sub">Çankaya'daki merkez ofisimizden Türkiye'nin her iline gönderim yapıyor, anlaşmalı kargo ağımızla 40'tan fazla ülkeye ulaşıyoruz.</p>
+
+            <div class="ms-globe-stats">
+                <div>
+                    <div class="ms-globe-num">81</div>
+                    <div class="ms-globe-cap">İlde teslimat</div>
+                </div>
+                <div>
+                    <div class="ms-globe-num">40+</div>
+                    <div class="ms-globe-cap">Ülkeye gönderim</div>
+                </div>
+                <div>
+                    <div class="ms-globe-num">24 sa</div>
+                    <div class="ms-globe-cap">Ortalama yanıt</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
-<!-- Contact End -->

@@ -923,6 +923,30 @@ body::-webkit-scrollbar-thumb:hover { background: #3A424E; }
 /* Hero yan kolon */
 .ms-hero-side { display: flex; flex-direction: column; gap: 20px; }
 
+/* Yan kolondaki promo kartlari yaklasik 4:1 oraninda, gorseller ise 16:9.
+   Karti tam kaplatirsak gorselin dikeyde yarisindan fazlasi kirpiliyor ve
+   urun ikiye boluniyor. Cozum: gorsel kendi oraninda (16:9) tam yukseklikte
+   sagda duruyor, sol kenari maskeyle zemine eriyor. Boylece kirpma olmuyor. */
+@media (min-width: 992px) {
+    .ms-hero-side .ms-promo > img {
+        left: auto;
+        right: 0;
+        width: auto;
+        height: 100%;
+        max-width: 54%;
+        aspect-ratio: 16 / 9;
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
+        mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
+    }
+
+    /* Gorsel artik sadece sag tarafta oldugu icin perde de hafifledi */
+    .ms-hero-side .ms-promo .ms-promo-veil {
+        background: linear-gradient(90deg, rgba(11, 13, 16, .55) 0%, rgba(11, 13, 16, .1) 55%, transparent 80%);
+    }
+
+    .ms-hero-side .ms-promo-body { max-width: 58%; }
+}
+
 @media (min-width: 992px) {
     .ms-hero-side { height: clamp(360px, 40vw, 500px); }
     .ms-hero-side .ms-promo { flex: 1 1 0; min-height: 0; }
@@ -1708,7 +1732,186 @@ body::-webkit-scrollbar-thumb:hover { background: #3A424E; }
     .ms-footer-bottom { flex-direction: column; text-align: center; }
 }
 
-/* --------------------------------------------------------- 15. Yukari cik */
+/* --------------------------------------------------- 15. Iletisim sayfasi */
+
+.ms-panel {
+    height: 100%;
+    padding: clamp(22px, 3vw, 34px);
+    border-radius: var(--ms-r);
+    background: var(--ms-surface);
+    border: 1px solid var(--ms-line);
+}
+
+.ms-panel-title {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+    font-weight: 700 !important;
+    letter-spacing: -.02em;
+}
+
+.ms-panel-sub {
+    margin: 0 0 26px;
+    color: var(--ms-faint);
+    font-size: .87rem;
+}
+
+.ms-field { margin-bottom: 18px; }
+
+.ms-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ms-faint);
+}
+
+.ms-map {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--ms-r);
+    border: 1px solid var(--ms-line);
+    background: var(--ms-surface-2);
+}
+
+.ms-map iframe {
+    display: block;
+    width: 100%;
+    height: 300px;
+    border: 0;
+    /* Google'in acik renkli haritasini koyu temaya yaklastirir.
+       Bu satiri silerseniz harita orijinal renklerinde gorunur. */
+    filter: invert(92%) hue-rotate(180deg) saturate(.72) contrast(.95);
+}
+
+.ms-map-pin {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 15px;
+    border-radius: 99px;
+    background: rgba(11, 13, 16, .88);
+    border: 1px solid var(--ms-line-2);
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    font-size: .78rem;
+    color: var(--ms-text);
+}
+
+.ms-map-pin i { color: var(--ms-gold); font-size: .8rem; }
+
+.ms-contact-list { display: grid; gap: 12px; margin-top: 20px; }
+
+.ms-contact-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 18px;
+    border-radius: var(--ms-r);
+    background: var(--ms-surface);
+    border: 1px solid var(--ms-line);
+    transition: border-color .25s var(--ms-ease), background-color .25s var(--ms-ease);
+}
+
+.ms-contact-item:hover {
+    border-color: rgba(255, 211, 51, .28);
+    background: var(--ms-surface-2);
+}
+
+.ms-contact-icon {
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: var(--ms-gold-soft);
+    border: 1px solid rgba(255, 211, 51, .2);
+    color: var(--ms-gold);
+}
+
+.ms-contact-label {
+    display: block;
+    font-size: .68rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--ms-faint);
+    line-height: 1.6;
+}
+
+.ms-contact-value {
+    display: block;
+    font-family: var(--ms-display);
+    font-size: .94rem;
+    font-weight: 600;
+    color: var(--ms-text);
+    letter-spacing: -.012em;
+    line-height: 1.35;
+}
+
+/* Dunya seridi */
+.ms-globe {
+    display: grid;
+    grid-template-columns: 230px 1fr;
+    align-items: center;
+    gap: clamp(24px, 4vw, 56px);
+    margin-top: 12px;
+    padding: clamp(26px, 4vw, 44px);
+    border-radius: var(--ms-r-lg);
+    border: 1px solid var(--ms-line);
+    background:
+        radial-gradient(560px 320px at 10% 50%, rgba(255, 211, 51, .07), transparent 62%),
+        var(--ms-surface);
+}
+
+.ms-globe-art { display: block; width: 100%; height: auto; }
+.ms-globe .ms-title { font-size: clamp(1.25rem, 2vw, 1.6rem); }
+.ms-globe .ms-sub { max-width: 58ch; }
+
+@keyframes msPing {
+    0% { transform: scale(.55); opacity: .32; }
+    75% { transform: scale(1.6); opacity: 0; }
+    100% { transform: scale(1.6); opacity: 0; }
+}
+
+.ms-globe-ping {
+    transform-origin: 132px 82px;
+    animation: msPing 2.8s ease-out infinite;
+}
+
+.ms-globe-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 26px;
+    padding-top: 24px;
+    border-top: 1px solid var(--ms-line);
+}
+
+.ms-globe-num {
+    font-family: var(--ms-display);
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -.03em;
+    color: var(--ms-gold);
+}
+
+.ms-globe-cap { font-size: .79rem; color: var(--ms-faint); }
+
+@media (max-width: 767.98px) {
+    .ms-globe { grid-template-columns: 1fr; }
+    .ms-globe-art { max-width: 190px; margin: 0 auto 8px; }
+    .ms-globe-stats { grid-template-columns: 1fr; gap: 14px; }
+}
+
+/* --------------------------------------------------------- 16. Yukari cik */
 
 .back-to-top {
     width: 46px;
@@ -1726,7 +1929,7 @@ body::-webkit-scrollbar-thumb:hover { background: #3A424E; }
 
 .back-to-top:hover { filter: brightness(1.07); }
 
-/* -------------------------------------------------- 16. Girisler / hareket */
+/* -------------------------------------------------- 17. Girisler / hareket */
 
 .ms-anim .ms-reveal {
     opacity: 0;
@@ -1742,7 +1945,8 @@ body::-webkit-scrollbar-thumb:hover { background: #3A424E; }
     .ms-hero-main .carousel-item.active .ms-hero-badge,
     .ms-hero-main .carousel-item.active .ms-hero-title,
     .ms-hero-main .carousel-item.active .ms-hero-text,
-    .ms-hero-main .carousel-item.active .ms-hero-actions { animation: none; }
+    .ms-hero-main .carousel-item.active .ms-hero-actions,
+    .ms-globe-ping { animation: none; }
     .ms-product:hover,
     .ms-cat:hover,
     .ms-promo:hover > img { transform: none; }
