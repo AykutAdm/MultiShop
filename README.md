@@ -633,26 +633,100 @@ MultiShop/
 
 <div align="center">
 
-**Mağaza — Ana Sayfa**
+<img src="docs/AnaSayfa-1.png" alt="MultiShop ana sayfa" width="900"/>
 
-<img src="docs/images/anasayfa.png" alt="MultiShop ana sayfa" width="900"/>
-
-<br/><br/>
+<i>Mağaza ana sayfası</i>
 
 </div>
 
+<br/>
+
+<details>
+<summary><b>🛍️ &nbsp;Mağaza — tüm ekranlar</b></summary>
+
+<br/>
+
+<div align="center">
+
+<img src="docs/AnaSayfa-2.png" alt="Mağaza" width="900"/>
+<img src="docs/AnaSayfa-4.png" alt="Mağaza" width="900"/>
+<img src="docs/AnaSayfa-5.png" alt="Mağaza" width="900"/>
+<img src="docs/AnaSayfa-6.png" alt="Mağaza" width="900"/>
+<img src="docs/AnaSayfa-7.png" alt="Mağaza" width="900"/>
+<img src="docs/AnaSayfa-8.png" alt="Mağaza" width="900"/>
+<img src="docs/AnaSayfa-9.png" alt="Mağaza" width="900"/>
+<img src="docs/AnaSayfa-10.png" alt="Mağaza" width="900"/>
+
+</div>
+
+</details>
+
+<details>
+<summary><b>⚙️ &nbsp;Yönetim Paneli</b></summary>
+
+<br/>
+
+<div align="center">
+
+<img src="docs/Admin-1.png" alt="Admin paneli" width="900"/>
+<img src="docs/Admin-2.png" alt="Admin paneli" width="900"/>
+<img src="docs/Admin-3.png" alt="Admin paneli" width="900"/>
+<img src="docs/Admin-4.png" alt="Admin paneli" width="900"/>
+<img src="docs/Admin-5.png" alt="Admin paneli" width="900"/>
+
+</div>
+
+</details>
+
+<details>
+<summary><b>👤 &nbsp;Kullanıcı Paneli</b></summary>
+
+<br/>
+
+<div align="center">
+
+<img src="docs/User-1.png" alt="Kullanıcı paneli" width="900"/>
+<img src="docs/User-2.png" alt="Kullanıcı paneli" width="900"/>
+<img src="docs/User-3.png" alt="Kullanıcı paneli" width="900"/>
+
+</div>
+
+</details>
+
+<details>
+<summary><b>🔐 &nbsp;Giriş ve Kayıt Ekranları</b></summary>
+
+<br/>
+
 <table>
 <tr>
-<td width="50%" align="center">
-<b>Yönetim Paneli</b><br/><br/>
-<img src="docs/images/admin-panel.png" alt="Admin paneli" width="100%"/>
+<td width="50%" valign="top" align="center">
+<b>Giriş Yap</b><br/><br/>
+<img src="docs/login.png" alt="Giriş ekranı" width="100%"/>
 </td>
-<td width="50%" align="center">
-<b>Kullanıcı Paneli</b><br/><br/>
-<img src="docs/images/kullanici-panel.png" alt="Kullanıcı paneli" width="100%"/>
+<td width="50%" valign="top" align="center">
+<b>Kayıt Ol</b><br/><br/>
+<img src="docs/register.png" alt="Kayıt ekranı" width="100%"/>
 </td>
 </tr>
 </table>
+
+</details>
+
+<details>
+<summary><b>🐳 &nbsp;Docker Altyapısı</b></summary>
+
+<br/>
+
+<div align="center">
+
+<img src="docs/Docker.png" alt="Docker konteynerleri" width="900"/>
+
+<i>MongoDB, Redis, PostgreSQL, RabbitMQ ve SQL Server Containers</i>
+
+</div>
+
+</details>
 
 
 <div align="center">
